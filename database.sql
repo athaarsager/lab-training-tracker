@@ -17,7 +17,8 @@ CREATE TABLE "training" (
 CREATE TABLE "person_training" (
 "id" serial primary key,
 "person_id" int REFERENCES "person",
-"training_id" int REFERENCES "training"
+"training_id" int REFERENCES "training",
+"date_taken" date NOT NULL DEFAULT CURRENT_DATE
 );
 
 INSERT INTO "training" ("title", "short_title", "validation_length")
