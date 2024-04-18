@@ -2,6 +2,20 @@ const express = require("express");
 const pool = require("../pool");
 const router = express.Router();
 
+// GET all trainings for a separate training page
+router.get("/", async (req, res) => {
+    try {
+        const queryText = `
+        SELECT * FROM "training" ORDER BY "id";
+        `;
+        const result = await pool.query(queryText);
+        res.send(result.rows);
+    } catch (error) {
+        console.log("ERROR in getting all trainings:", error);
+        res.sendStatus(500);
+    }
+});
+
 // GET all trainings a specific person has done
 router.get("/:id", async (req, res) => {
     try {
