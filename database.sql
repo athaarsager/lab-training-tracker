@@ -4,7 +4,7 @@ CREATE TABLE "person" (
 "last_name" varchar (255) NOT NULL,
 "email" varchar (255) NOT NULL,
 "is_instructor" boolean NOT NULL,
-"has_left" boolean NOT NULL
+"has_left" boolean DEFAULT false NOT NULL
 );
 
 CREATE TABLE "training" (
