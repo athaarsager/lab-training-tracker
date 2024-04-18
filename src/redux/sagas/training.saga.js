@@ -47,6 +47,7 @@ function* updateTrainingRecords(action) {
     }
 }
 
+// update the info of a specific training (title, etc.)
 function* updateTraining(action) {
     try {
         // action.payload will be a full training object
@@ -58,12 +59,25 @@ function* updateTraining(action) {
     }
 }
 
+// delete a training from the system if outdated, etc.
+function* removeTraining(action) {
+    try {
+        // action.payload will just be the training's id
+        yield axios.delete(`/api/training/${action.payload.id}`);
+        // need to refresh the list of trainings
+        yield put({ type: "FETCH_TRAININGS" });
+    } catch (error) {
+        console.error("ERROR in deleting training:", error);
+    }
+}
+
 function* trainingSaga() {
     yield takeLatest("FETCH_TRAININGS", fetchTrainings);
     yield takeLatest("ADD_TRAINING", addTraining);
     yield takeLatest("ADD_PERSON_TRAINING_ENTRY", addPersonTrainingEntry);
     yield takeLatest("UPDATE_TRAINING_RECORDS", updateTrainingRecords);
     yield takeLatest("UPDATE_TRAINING", updateTraining);
+    yield takeLatest("REMOVE_TRAINING", removeTraining);
 }
 
 export default trainingSaga;
