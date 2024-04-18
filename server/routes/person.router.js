@@ -52,4 +52,22 @@ router.post("/", async (req, res) => {
     }
 });
 
+// Update person's info (PUT)
+router.put("/:id", async (req, res) => {
+    try {
+        // req.params.id will be person's id
+        // updated info will auto-fill on front end with current info so all values are present when sent to back end
+        const updatedInfo = req.body;
+        const queryText = `
+        UPDATE "person" SET "first_name" = $1, "last_name" = $2, "email" = $3, "is_instructor" = $4
+        WHERE "id" = $5;
+        `;
+        await pool.query(queryText, [updatedInfo.first_name, updatedInfo.last_name, updatedInfo.email, updatedInfo.is_instructor, req.params.id]);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log("ERROR in person PUT:", error);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;
