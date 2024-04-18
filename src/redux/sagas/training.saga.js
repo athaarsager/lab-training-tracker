@@ -14,7 +14,10 @@ function* fetchTrainings() {
 // Add a new training to the system
 function* addTraining(action) {
     try {
-
+        // action.payload will be a training object
+        yield axios.post("/api/training", action.payload);
+        // trainings will be added on the trainings page, so need to refresh the list of trainings
+        yield put({ type: "FETCH_TRAININGS" });
     } catch (error) {
         console.error("ERROR adding a new training:", error);
     }
