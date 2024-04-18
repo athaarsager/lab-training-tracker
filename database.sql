@@ -16,7 +16,7 @@ CREATE TABLE "training" (
 
 CREATE TABLE "person_training" (
 "id" serial primary key,
-"person_id" int REFERENCES "person"
+"person_id" int REFERENCES "person",
 "training_id" int REFERENCES "training"
 );
 
