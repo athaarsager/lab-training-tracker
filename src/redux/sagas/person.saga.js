@@ -36,10 +36,23 @@ function* addPerson(action) {
     }
 }
 
+// update a person's info
+function* updatePerson(action) {
+    try {
+        // action.payload will be a person object
+        yield axios.put(`/api/person/${action.payload.id}`, action.payload);
+        // User will update info on person details page, so need to refresh the selected person to reflect the changes made
+        yield put({ type: "FETCH_SELECTED_PERSON_INFO", payload: action.payload.id });
+    } catch (error) {
+        console.error("ERROR in updatePerson generator:", error);
+    }
+}
+
 function* personSaga() {
     yield takeLatest("FETCH_PEOPLE", fetchPeople);
     yield takeLatest("FETCH_SELECTED_PERSON_INFO", fetchSelectedPersonInfo);
     yield takeLatest("ADD_PERSON", addPerson);
+    yield takeLatest("UPDATE_PERSON", updatePerson);
 }
 
 export default personSaga;
