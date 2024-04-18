@@ -70,4 +70,21 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+// DELETE a person from the system (soft delete--simply mark them as "has_left")
+router.put("/delete/:id", async (req, res) => {
+    try {
+        // req.params will be person's id
+        // don't need other info as this will simply be a delete button on the front end
+        const queryText = `
+        UPDATE "person" SET "has_left" = true
+        WHERE "id" = $1;
+        `;
+        await pool.query(queryText, [req.params.id]);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log("ERROR in person soft delete:", error);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;
