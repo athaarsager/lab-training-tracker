@@ -20,7 +20,23 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST new training (in case new curriculum added or regulations change, etc.)
-// POST new entry to person_training table if they have completed a training
+router.post("/", async (req, res) => {
+    try {
+        // req.body will be an object with all the info needed for a new training
+        const queryText = `
+        INSERT INTO "training" ("title", "short_title", "validation_length")
+        VALUES ($1, $2, $3);
+        `;
+        await pool.query(queryText, [req.body.title, req.body.short_title, req.body.validation_length]);
+        res.sendStatus(201);
+    } catch (error) {
+        console.log("ERROR in new training POST:", error);
+        res.sendStatus(500);
+    }
+});
+
+// POST new entry to person_training table if they have completed a training for the first time
+// Update training date_taken whenever someone re-takes a training
 // Update training name?
 // DELETE a training if outdated?
 
