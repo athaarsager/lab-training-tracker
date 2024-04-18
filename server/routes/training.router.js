@@ -7,7 +7,7 @@ router.get("/:id", async (req, res) => {
     try {
         // req.params.id will be the id of the person clicked on
         const queryText = `
-        SELECT "person_id", "training_id", "title", "short_title", "validation_length", "date_taken" FROM "training"
+        SELECT "person_id", "training_id", "person_training"."id" AS "person_training_id", "title", "short_title", "validation_length", "date_taken" FROM "training"
         JOIN "person_training" ON "training_id" = "training"."id"
         WHERE "person_id" = $1;
         `;
@@ -55,7 +55,22 @@ router.post("/:id", async (req, res) => {
         res.sendStatus(500);
     }
 });
-// Update training date_taken whenever someone re-takes a training
+
+// Update person_training date_taken whenever someone re-takes a training
+router.put("/update_date/:id", async (req, res) => {
+    try {
+        // req.params.id will be the id of the person_training entry
+        const queryText = `
+        UPDATE "person_training" SET "date_taken" = current_date WHERE "id" = $1;
+        `;
+        await pool.query(queryText, [req.params.id]);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log("ERROR in updating date a training was taken:", error);
+        res.sendStatus(500);
+    }
+});
+
 // Update training name?
 // DELETE a training if outdated?
 
