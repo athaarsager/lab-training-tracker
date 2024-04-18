@@ -47,11 +47,23 @@ function* updateTrainingRecords(action) {
     }
 }
 
+function* updateTraining(action) {
+    try {
+        // action.payload will be a full training object
+        yield axios.put(`/api/training/${action.payload.id}`, action.payload);
+        // need to refresh the list of trainings with their updated info
+        yield put({ type: "FETCH_TRAININGS" });
+    } catch(error) {
+        console.error("ERROR in updating training:", error);
+    }
+}
+
 function* trainingSaga() {
     yield takeLatest("FETCH_TRAININGS", fetchTrainings);
     yield takeLatest("ADD_TRAINING", addTraining);
     yield takeLatest("ADD_PERSON_TRAINING_ENTRY", addPersonTrainingEntry);
     yield takeLatest("UPDATE_TRAINING_RECORDS", updateTrainingRecords);
+    yield takeLatest("UPDATE_TRAINING", updateTraining);
 }
 
 export default trainingSaga;
