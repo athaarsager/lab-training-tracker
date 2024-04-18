@@ -71,7 +71,22 @@ router.put("/update_date/:id", async (req, res) => {
     }
 });
 
-// Update training name?
+// Update training info (title, etc.) in case things change
+router.put("/:id", async (req, res) => {
+    try {
+        // req.params.id will be the id of the training
+        // req.body will contain all the trainings info and be pre-populated with existing data on front end
+        const queryText = `
+        UPDATE "training" SET "title" = $1, "short_title" = $2, "validation_length" = $3 WHERE "id" = $4;
+        `;
+        await pool.query(queryText, [req.body.title, req.body.short_title, req.body.validation_length, req.params.id]);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log("ERROR in updating training info:", error);
+        res.sendStatus(500);
+    }
+});
+
 // DELETE a training if outdated?
 
 module.exports = router;
