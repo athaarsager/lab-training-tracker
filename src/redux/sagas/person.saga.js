@@ -32,7 +32,7 @@ function* addPerson(action) {
         // User will add a new person on the main page, so need to refresh the list of people
         yield put({ type: "FETCH_PEOPLE" });
     } catch (error) {
-        console.error("ERROR in addPerson generator:", error);
+        console.error("ERROR adding a new person:", error);
     }
 }
 
@@ -44,7 +44,19 @@ function* updatePerson(action) {
         // User will update info on person details page, so need to refresh the selected person to reflect the changes made
         yield put({ type: "FETCH_SELECTED_PERSON_INFO", payload: action.payload.id });
     } catch (error) {
-        console.error("ERROR in updatePerson generator:", error);
+        console.error("ERROR updating person:", error);
+    }
+}
+
+// Delete a person (mark them as having left the institution)
+function* removePerson(action) {
+    try {
+        // action.payload will be the person's id
+        yield axios.put(`/api/person/delete/${action.payload}`);
+        // user will "delete" a person from the main page, so need to refresh the list of people
+        yield put({ type: "FETCH_PEOPLE" });
+    } catch (error) {
+        console.error("ERROR removing person:", error);
     }
 }
 
@@ -53,6 +65,7 @@ function* personSaga() {
     yield takeLatest("FETCH_SELECTED_PERSON_INFO", fetchSelectedPersonInfo);
     yield takeLatest("ADD_PERSON", addPerson);
     yield takeLatest("UPDATE_PERSON", updatePerson);
+    yield takeLatest("REMOVE_PERSON", removePerson);
 }
 
 export default personSaga;
