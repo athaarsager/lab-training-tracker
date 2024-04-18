@@ -17,7 +17,7 @@ CREATE TABLE "training" (
 CREATE TABLE "person_training" (
 "id" serial primary key,
 "person_id" int REFERENCES "person",
-"training_id" int REFERENCES "training",
+"training_id" int REFERENCES "training" ON DELETE CASCADE,
 "date_taken" date NOT NULL DEFAULT CURRENT_DATE
 );
 

@@ -87,6 +87,19 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-// DELETE a training if outdated?
+// DELETE a training if outdated
+router.delete("/:id", async (req, res) => {
+    try {
+        // req.params.id will be the id of the training
+        const queryText = `
+        DELETE FROM "training" WHERE "id" = $1;
+        `;
+        await pool.query(queryText, [req.params.id]);
+        res.sendStatus(204);
+    } catch (error) {
+        console.log("ERROR in deleting training:", error);
+        res.sendStatus(500);
+    }
+});
 
 module.exports = router;
