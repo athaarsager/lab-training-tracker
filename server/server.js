@@ -10,9 +10,11 @@ app.use(express.static("build"));
 
 // Route Includes
  const personRouter = require("./routes/person.router");
+ const trainingRouter = require("./routes/training.router");
 
 // Routes
 app.use("/api/person", personRouter);
+app.use("/api/training", trainingRouter);
 
 // Listen to Server and Port
 app.listen(PORT, () => {
