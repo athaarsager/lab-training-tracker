@@ -36,6 +36,25 @@ router.post("/", async (req, res) => {
 });
 
 // POST new entry to person_training table if they have completed a training for the first time
+router.post("/:id", async (req, res) => {
+    try {
+        // just store the training id in req.body. 
+        // store person's id in req.params
+        // going to assume power user is notified immediately when a person completes a training
+        // so there won't be a date picker for choosing the date. Will default to date when records are updated
+        const personId = req.params.id;
+        const trainingId = req.body.id;
+        const queryText =  `
+        INSERT INTO "person_training" ("person_id", "training_id")
+        VALUES ($1, $2);
+        `;
+        await pool.query(queryText, [personId, trainingId]);
+        res.sendStatus(201);
+    } catch (error) {
+        console.log("ERROR in posting new data to person_training:", error);
+        res.sendStatus(500);
+    }
+});
 // Update training date_taken whenever someone re-takes a training
 // Update training name?
 // DELETE a training if outdated?
