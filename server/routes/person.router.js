@@ -2,8 +2,6 @@ const express = require("express");
 const pool = require("../pool");
 const router = express.Router();
 
-// need: GET ALL, GET INDIVIDUAL, POST, UPDATE, DELETE
-
 // GET ALL people (that are still at the institution)
 router.get("/", async (req, res) => {
     try {
