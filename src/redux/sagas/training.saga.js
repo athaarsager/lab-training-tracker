@@ -23,8 +23,22 @@ function* addTraining(action) {
     }
 }
 
+// Add a new entry to the person_training table if a person has completed a training for the first time
+function* addPersonTrainingEntry(action) {
+    try {
+        // action.payload will be object with the following keys: person_id, training_id
+        yield axios.post(`/api/training/${action.payload.person_id}`, action.payload);
+        // need to update this information on the selected person's page
+        yield put({ type: "FETCH_SELECTED_PERSON_INFO", payload: action.payload.person_id });
+    } catch(error) {
+        console.error("ERROR in adding a training entry for a specific person:", error);
+    }
+}
+
 function* trainingSaga() {
     yield takeLatest("FETCH_TRAININGS", fetchTrainings);
+    yield takeLatest("ADD_TRAINING", addTraining);
+    yield takeLatest("ADD_PERSON_TRAINING_ENTRY", addPersonTrainingEntry);
 }
 
 export default trainingSaga;
