@@ -24,9 +24,22 @@ function* fetchSelectedPersonInfo(action) {
     }
 }
 
+// add a new person to the system
+function* addPerson(action) {
+    try {
+        // action.payload will be a person object
+        yield axios.post("/api/person", action.payload);
+        // User will add a new person on the main page, so need to refresh the list of people
+        yield put({ type: "FETCH_PEOPLE" });
+    } catch (error) {
+        console.error("ERROR in addPerson generator:", error);
+    }
+}
+
 function* personSaga() {
     yield takeLatest("FETCH_PEOPLE", fetchPeople);
     yield takeLatest("FETCH_SELECTED_PERSON_INFO", fetchSelectedPersonInfo);
+    yield takeLatest("ADD_PERSON", addPerson);
 }
 
 export default personSaga;
