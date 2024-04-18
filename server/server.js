@@ -8,7 +8,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("build"));
 
+// Route Includes
+ const personRouter = require("./routes/person.router");
+
 // Routes
+app.use("/api/person", personRouter);
 
 // Listen to Server and Port
 app.listen(PORT, () => {
