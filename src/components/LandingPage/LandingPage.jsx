@@ -31,7 +31,6 @@ export default function LandingPage() {
     // When an individual person is clicked on, take user to detail page for that person
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
-    
 
     const removePerson = (e) => {
         // fire modal
@@ -66,6 +65,7 @@ export default function LandingPage() {
         <Grid container>
             <Grid item xs={10}>
                 <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
+                <Button variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
