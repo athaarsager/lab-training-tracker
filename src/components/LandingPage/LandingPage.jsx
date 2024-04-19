@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -24,6 +25,32 @@ export default function LandingPage() {
     // Create dialog for adding a new person
     // Link to resources page
     // When an individual person is clicked on, take user to detail page for that person
+
+    const removePerson = (e) => {
+        // fire modal
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            iconColor: "#ffa726",
+            showCancelButton: true,
+            confirmButtonColor: "#42a5f5",
+            cancelButtonColor: "#f44336",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: "REMOVE_PERSON", payload: e.target.dataset.person_id });
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                    iconColor: "#66bb6a",
+                    confirmButtonColor: "#42a5f5"
+                });
+            }
+        });
+    }
+
     useEffect(() => {
         dispatch({ type: "FETCH_PEOPLE" });
         console.log("This is the value of people:", people);
@@ -50,7 +77,7 @@ export default function LandingPage() {
                                     <TableCell>{person.first_name}</TableCell>
                                     <TableCell>{person.email}</TableCell>
                                     <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                    <TableCell><Button color="error" variant="outlined">Remove</Button></TableCell>
+                                    <TableCell><Button data-person_id={person.id} color="error" variant="outlined" onClick={removePerson}>Remove</Button></TableCell>
                                 </TableRow>
                             )))}
                         </TableBody>
