@@ -30,7 +30,6 @@ export default function LandingPage() {
     const closeDialog = () => setDialogIsOpen(false);
 
     // TODO: 
-    // Add search bar for searching for specific person
     // Link to lab list page
     // When an individual person is clicked on, take user to detail page for that person
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
@@ -47,6 +46,7 @@ export default function LandingPage() {
             return;
         }
         const options = {
+            // score is like a percent match
             includeScore: true,
             // if this doesn't work, double check formatting of keys array
             keys: ["last_name"]
