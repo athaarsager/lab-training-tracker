@@ -23,7 +23,7 @@ export default function LandingPage() {
     // Allow individual people to be deleted/removed
     // Add search bar for searching for specific person
     // Create dialog for adding a new person
-    // Link to resources page
+    // Link to lab list page
     // When an individual person is clicked on, take user to detail page for that person
 
     const removePerson = (e) => {
