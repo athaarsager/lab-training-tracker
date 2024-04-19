@@ -3,6 +3,13 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 
 export default function LandingPage() {
@@ -24,6 +31,18 @@ export default function LandingPage() {
         <Grid container>
             <Grid item>
                 <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Last Name</TableCell>
+                                <TableCell>First Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Instructor?</TableCell>
+                            </TableRow>
+                        </TableHead>
+                    </Table>
+                </TableContainer>
             </Grid>
         </Grid>
     )

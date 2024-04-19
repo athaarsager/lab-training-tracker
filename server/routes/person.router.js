@@ -6,7 +6,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const queryText = `
-        SELECT * FROM "person" WHERE "has_left" = false;
+        SELECT * FROM "person" WHERE "has_left" = false
+        ORDER BY "last_name", "first_name";
         `;
 
         const result = await pool.query(queryText);
