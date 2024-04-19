@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 export default function LandingPage() {
     const navigate = useNavigate(); // replacement of useHistory
     const dispatch = useDispatch();
+    const people = useSelector(store => store.people);
+
     // TODO: 
     // display list of people
     // Allow individual people to be deleted/removed
@@ -15,7 +17,9 @@ export default function LandingPage() {
     // Create dialog for adding a new person
     // Link to resources page
     // When an individual person is clicked on, take user to detail page for that person
-
+    useEffect(() => {
+        dispatch({ type: "FETCH_PEOPLE" });
+    }, []);
     return (
         <Grid container>
             <Grid item>
