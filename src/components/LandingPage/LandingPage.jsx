@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+
+
 export default function LandingPage() {
+    const navigate = useNavigate(); // replacement of useHistory
+    const dispatch = useDispatch();
     // TODO: 
     // display list of people
     // Allow individual people to be deleted/removed
