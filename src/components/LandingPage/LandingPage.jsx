@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddPersonDialog from "./AddPersonDialog";
 import Swal from "sweetalert2";
+import Fuse from "fuse.js";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -26,11 +27,21 @@ export default function LandingPage() {
 
     // TODO: 
     // Add search bar for searching for specific person
-    // Create dialog for adding a new person
     // Link to lab list page
     // When an individual person is clicked on, take user to detail page for that person
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
+    // Search stuff
+    // The options are the settings for the search Fuse.js makes. Details in documentation for what all the option settings are
+    // options are also the second parameter that has to be passed into the Fuse function
+    const options = {
+        includeScore: true,
+        keys: [last_name]
+    }
+
+    const fuse = new Fuse(people, options);
+
+    // const result = fuse.search(insertVariableHere);
 
     const removePerson = (e) => {
         // fire modal
