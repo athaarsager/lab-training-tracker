@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import AddPersonDialog from "./AddPersonDialog";
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -19,12 +20,17 @@ export default function LandingPage() {
     const dispatch = useDispatch();
     const people = useSelector(store => store.people);
 
+    // Dialog variables
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
+    const closeDialog = () => setDialogIsOpen(false);
+
     // TODO: 
-    // Allow individual people to be deleted/removed
     // Add search bar for searching for specific person
     // Create dialog for adding a new person
     // Link to lab list page
     // When an individual person is clicked on, take user to detail page for that person
+
+    
 
     const removePerson = (e) => {
         // fire modal
@@ -83,7 +89,8 @@ export default function LandingPage() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <AddPersonDialog open={dialogIsOpen} handleClose={closeDialog} />
             </Grid>
         </Grid>
-    )
+    );
 }
