@@ -10,7 +10,6 @@ import Grid from "@mui/material/Grid";
 // (automattically sets paths to match with the url in the browser)
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-
 function App() {
 
   return (
@@ -18,7 +17,7 @@ function App() {
       <Grid container>
         <Grid item xs={12}>
           <Routes>
-            <Route path="/landing_page" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} />
           </Routes>
         </Grid>
       </Grid >
