@@ -36,7 +36,8 @@ export default function LandingPage() {
     // options are also the second parameter that has to be passed into the Fuse function
     const options = {
         includeScore: true,
-        keys: [last_name]
+        // if this doesn't work, double check formatting of keys array
+        keys: ["last_name"]
     }
 
     const fuse = new Fuse(people, options);
