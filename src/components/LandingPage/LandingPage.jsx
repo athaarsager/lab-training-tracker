@@ -22,6 +22,7 @@ export default function LandingPage() {
     const navigate = useNavigate(); // replacement of useHistory
     const dispatch = useDispatch();
     const people = useSelector(store => store.people);
+    // I use this variable so I don't have to write conditionally rendered HTML. This effectively takes care of the conditional rendering
     const [peopleToDisplay, setPeopleToDisplay] = useState(people);
 
     // Dialog variables
@@ -37,10 +38,14 @@ export default function LandingPage() {
     // Search stuff
     // This is the text input in the form field that will be used for the search
     const [searchText, setSearchText] = useState("");
-    const [searchSubmitted, setSearchSubmitted] = useState(false);
 
     const submitSearch = (e) => {
         e.preventDefault();
+        // This controls that if an empty string was submitted, just display the full list of people
+        if (searchText === "") {
+            setPeopleToDisplay(people);
+            return;
+        }
         const options = {
             includeScore: true,
             // if this doesn't work, double check formatting of keys array
@@ -49,13 +54,14 @@ export default function LandingPage() {
         // The options are the settings for the search Fuse.js makes. Details in documentation for what all the option settings are
         // options are also the second parameter that has to be passed into the Fuse function
         const fuse = new Fuse(people, options);
+        // Have to parse the result object so I just have an array of people that matches my normal array of people
         const result = fuse.search(searchText);
+
         const peopleResult = [];
         for (const entry of result) {
             peopleResult.push(entry.item);
         }
         setPeopleToDisplay(peopleResult);
-        setSearchSubmitted(true);
     }
 
     const removePerson = (e) => {
@@ -87,6 +93,7 @@ export default function LandingPage() {
         dispatch({ type: "FETCH_PEOPLE" });
     }, []);
 
+    // Need this so the people displayed on the page updates whenever the people array is updated
     useEffect(() => {
         setPeopleToDisplay(people);
     }, [people]);
