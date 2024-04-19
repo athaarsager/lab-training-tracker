@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Box from "@mui/material/Box";
 
 function AddPersonDialog({ open, handleClose }) {
     const dispatch = useDispatch();
@@ -22,33 +23,36 @@ function AddPersonDialog({ open, handleClose }) {
     );
 
     const handleSubmit = (e) => {
-        dispatch({ type: "ADD_PERSON", payload: person});
+        dispatch({ type: "ADD_PERSON", payload: person });
         handleClose();
     }
     return (
-        <Dialog
-        open={open} 
-        onClose={handleClose}
-        PaperProps={{ component: "form" /* onSubmit: handleSubmit */ }}
-        >
-            <DialogTitle>Add a New Person</DialogTitle>
-            <TextField required id="first_name" label="First Name" type="text" fullWidth />
-            <TextField required id="last_name" label="Last Name" type="text" fullWidth />
-            <TextField required id="email" label="Email" type="email" fullWidth />
-            {/* Need to make button for setting if a person is an instructor */}
-            <FormControl fullWidth>
-                <InputLabel id="is-instructor-label">Are They an Instructor?</InputLabel>
-                <Select
-                labelId="is-instructor-label"
-                id="is_instructor"
-                value={person.is_instructor}
-                // insert onChange function here
-                >
-                    <MenuItem value={false}>No</MenuItem>
-                    <MenuItem value={true}>Yes</MenuItem>
-                </Select>
-            </FormControl>
-        </Dialog>
+        <Box sx={{ minWidth: "50vh" }}>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                PaperProps={{ component: "form", /* onSubmit: handleSubmit */ sx: { width: "50vh", padding: "1rem" }}}
+            >
+                <DialogTitle>Add a New Person</DialogTitle>
+                <TextField sx={{ mb: ".5rem" }} required id="first_name" label="First Name" type="text" variant="standard" fullWidth />
+                <TextField sx={{ mb: ".5rem" }} required id="last_name" label="Last Name" type="text" variant="standard" fullWidth />
+                <TextField sx={{ mb: "1.5rem" }} required id="email" label="Email" type="email" variant="standard" fullWidth />
+                {/* Need to make button for setting if a person is an instructor */}
+                <FormControl fullWidth>
+                    <InputLabel sx={{ mb: "2rem" }} id="is-instructor-label">Are They an Instructor?</InputLabel>
+                    <Select
+                        labelId="is-instructor-label"
+                        id="is_instructor"
+                        value={person.is_instructor}
+                        label="Are They an Instructor?"
+                    // insert onChange function here
+                    >
+                        <MenuItem value={false}>No</MenuItem>
+                        <MenuItem value={true}>Yes</MenuItem>
+                    </Select>
+                </FormControl>
+            </Dialog>
+        </Box>
     );
 }
 
