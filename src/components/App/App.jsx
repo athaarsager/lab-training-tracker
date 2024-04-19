@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import LandingPage from '../LandingPage/LandingPage';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,7 +13,7 @@ function App() {
   return (
     <Grid container>
       <Grid item>
-      <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
+        <LandingPage />
       </Grid>
     </Grid>
   )
