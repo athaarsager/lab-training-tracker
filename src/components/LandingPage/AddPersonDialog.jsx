@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -24,29 +25,58 @@ function AddPersonDialog({ open, handleClose }) {
 
     const updatePerson = (e) => {
         const { name, value } = e.target;
-        setPerson((state) => ({ ...state, [name]: value}));
+        setPerson((state) => ({ ...state, [name]: value }));
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault();
         dispatch({ type: "ADD_PERSON", payload: person });
+        setPerson(
+            {
+                first_name: "",
+                last_name: "",
+                email: "",
+                is_instructor: false
+            }
+        );
         handleClose();
+        Swal.fire({
+            title: "Success!",
+            text: "New Person Successfully Added!",
+            icon: "success",
+            iconColor: "#66bb6a",
+            confirmButtonColor: "#42a5f5"
+          });
     }
+
+    const closeDialog = () => {
+        handleClose();
+        setPerson(
+            {
+                first_name: "",
+                last_name: "",
+                email: "",
+                is_instructor: false
+            }
+        );
+    }
+
     return (
         <Box sx={{ minWidth: "50vh" }}>
             <Dialog
                 open={open}
-                onClose={handleClose}
-                PaperProps={{ component: "form", /* onSubmit: handleSubmit */ sx: { width: "50vh", padding: "1rem" }}}
+                onClose={closeDialog}
+                PaperProps={{ component: "form", onSubmit: handleSubmit, sx: { width: "50vh", padding: "1rem" } }}
             >
                 <DialogTitle>Add a New Person</DialogTitle>
-                <TextField sx={{ mb: ".5rem" }} required id="first_name" name="first_name" label="First Name" type="text" variant="standard" fullWidth 
-                value={person.first_name} onChange={updatePerson} />
+                <TextField sx={{ mb: ".5rem" }} required id="first_name" name="first_name" label="First Name" type="text" variant="standard" fullWidth
+                    value={person.first_name} onChange={updatePerson} />
 
                 <TextField sx={{ mb: ".5rem" }} required id="last_name" name="last_name" label="Last Name" type="text" variant="standard" fullWidth
-                value={person.last_name} onChange={updatePerson}/>
+                    value={person.last_name} onChange={updatePerson} />
 
                 <TextField sx={{ mb: "1.5rem" }} required id="email" name="email" label="Email" type="email" variant="standard" fullWidth
-                value={person.email} onChange={updatePerson} />
+                    value={person.email} onChange={updatePerson} />
                 {/* Need to make button for setting if a person is an instructor */}
                 <FormControl fullWidth>
                     <InputLabel sx={{ mb: "2rem" }} id="is-instructor-label">Are They an Instructor?</InputLabel>
@@ -61,6 +91,10 @@ function AddPersonDialog({ open, handleClose }) {
                         <MenuItem value={false}>No</MenuItem>
                         <MenuItem value={true}>Yes</MenuItem>
                     </Select>
+                    <DialogActions>
+                        <Button color="error" onClick={closeDialog}>Cancel</Button>
+                        <Button type="submit">Submit</Button>
+                    </DialogActions>
                 </FormControl>
             </Dialog>
         </Box>
