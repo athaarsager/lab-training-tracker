@@ -65,6 +65,7 @@ export default function LandingPage() {
     }
 
     const removePerson = (e) => {
+        e.stopPropagation();
         // fire modal
         Swal.fire({
             title: "Are you sure?",
@@ -125,7 +126,8 @@ export default function LandingPage() {
                             {/* But if a search has been submitted, that array will be the search results */}
                             {/* This is constrolled by the peopleToDisplay useState variable */}
                             {peopleToDisplay?.map(((person, index) => (
-                                <TableRow key={index}>
+                                // Need to use e.currentTarget in the navigate string so that the row is always the thing that is controlling the event, not the table cell
+                                <TableRow sx={{ cursor: "pointer" }} key={person.id} data-person_id={person.id} onClick={(e) => navigate(`/${e.currentTarget.dataset.person_id}/details`)}>
                                     <TableCell>{person.last_name}</TableCell>
                                     <TableCell>{person.first_name}</TableCell>
                                     <TableCell>{person.email}</TableCell>

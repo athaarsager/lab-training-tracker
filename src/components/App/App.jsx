@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import LandingPage from '../LandingPage/LandingPage';
+import PersonDetailsPage from '../PersonDetailsPage/PersonDetailsPage';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -18,6 +19,7 @@ function App() {
         <Grid item xs={12}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/:id/details" element={<PersonDetailsPage />} />
           </Routes>
         </Grid>
       </Grid >
