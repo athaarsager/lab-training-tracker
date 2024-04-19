@@ -22,6 +22,7 @@ export default function LandingPage() {
     const navigate = useNavigate(); // replacement of useHistory
     const dispatch = useDispatch();
     const people = useSelector(store => store.people);
+    const [peopleToDisplay, setPeopleToDisplay] = useState(people);
 
     // Dialog variables
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
@@ -37,17 +38,25 @@ export default function LandingPage() {
     // This is the text input in the form field that will be used for the search
     const [searchText, setSearchText] = useState("");
     const [searchSubmitted, setSearchSubmitted] = useState(false);
-    // The options are the settings for the search Fuse.js makes. Details in documentation for what all the option settings are
-    // options are also the second parameter that has to be passed into the Fuse function
-    const options = {
-        includeScore: true,
-        // if this doesn't work, double check formatting of keys array
-        keys: ["last_name"]
+
+    const submitSearch = (e) => {
+        e.preventDefault();
+        const options = {
+            includeScore: true,
+            // if this doesn't work, double check formatting of keys array
+            keys: ["last_name"]
+        }
+        // The options are the settings for the search Fuse.js makes. Details in documentation for what all the option settings are
+        // options are also the second parameter that has to be passed into the Fuse function
+        const fuse = new Fuse(people, options);
+        const result = fuse.search(searchText);
+        const peopleResult = [];
+        for (const entry of result) {
+            peopleResult.push(entry.item);
+        }
+        setPeopleToDisplay(peopleResult);
+        setSearchSubmitted(true);
     }
-
-    const fuse = new Fuse(people, options);
-
-    // const result = fuse.search(insertVariableHere);
 
     const removePerson = (e) => {
         // fire modal
@@ -76,8 +85,11 @@ export default function LandingPage() {
 
     useEffect(() => {
         dispatch({ type: "FETCH_PEOPLE" });
-        console.log("This is the value of people:", people);
     }, []);
+
+    useEffect(() => {
+        setPeopleToDisplay(people);
+    }, [people]);
 
     return (
         <Grid container>
@@ -85,7 +97,9 @@ export default function LandingPage() {
                 <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
                 <Box sx={{ mb: "1rem" }}>
                     <Typography variant="h6">Find A Specific Person:</Typography>
-                    <TextField id="search" name="search" label="Search by Last Name" type="text" size="small" /><Button variant="contained">Find</Button>
+                    <TextField id="search" name="search" label="Search by Last Name" type="text" size="small"
+                        value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+                    <Button variant="contained" onClick={submitSearch}>Find</Button>
                 </Box>
                 <Button variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
                 <TableContainer component={Paper}>
@@ -99,26 +113,19 @@ export default function LandingPage() {
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
-
                         <TableBody>
-                            {/* Component will display one of two views based on if a search has been submitted */}
-                            {/* Normal view is the list of everyone */}
-                            {/* If searchSubmitted, just display the search results */}
-                            {searchSubmitted ?
-                                <Box>Test</Box>
-                                :
-                                <>
-                                    {people?.map((person => (
-                                        <TableRow key={person.id}>
-                                            <TableCell>{person.last_name}</TableCell>
-                                            <TableCell>{person.first_name}</TableCell>
-                                            <TableCell>{person.email}</TableCell>
-                                            <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                            <TableCell><Button data-person_id={person.id} color="error" variant="outlined" onClick={removePerson}>Remove</Button></TableCell>
-                                        </TableRow>
-                                    )))}
-                                </>
-                            }
+                            {/* Page will normally just display the array of people */}
+                            {/* But if a search has been submitted, that array will be the search results */}
+                            {/* This is constrolled by the peopleToDisplay useState variable */}
+                            {peopleToDisplay?.map(((person, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{person.last_name}</TableCell>
+                                    <TableCell>{person.first_name}</TableCell>
+                                    <TableCell>{person.email}</TableCell>
+                                    <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
+                                    <TableCell><Button data-person_id={person.id} color="error" variant="outlined" onClick={removePerson}>Remove</Button></TableCell>
+                                </TableRow>
+                            )))}
                         </TableBody>
                     </Table>
                 </TableContainer>
