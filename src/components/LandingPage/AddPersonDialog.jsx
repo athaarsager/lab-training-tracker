@@ -22,6 +22,11 @@ function AddPersonDialog({ open, handleClose }) {
         }
     );
 
+    const updatePerson = (e) => {
+        const { name, value } = e.target;
+        setPerson((state) => ({ ...state, [name]: value}));
+    }
+
     const handleSubmit = (e) => {
         dispatch({ type: "ADD_PERSON", payload: person });
         handleClose();
@@ -34,9 +39,14 @@ function AddPersonDialog({ open, handleClose }) {
                 PaperProps={{ component: "form", /* onSubmit: handleSubmit */ sx: { width: "50vh", padding: "1rem" }}}
             >
                 <DialogTitle>Add a New Person</DialogTitle>
-                <TextField sx={{ mb: ".5rem" }} required id="first_name" label="First Name" type="text" variant="standard" fullWidth />
-                <TextField sx={{ mb: ".5rem" }} required id="last_name" label="Last Name" type="text" variant="standard" fullWidth />
-                <TextField sx={{ mb: "1.5rem" }} required id="email" label="Email" type="email" variant="standard" fullWidth />
+                <TextField sx={{ mb: ".5rem" }} required id="first_name" name="first_name" label="First Name" type="text" variant="standard" fullWidth 
+                value={person.first_name} onChange={updatePerson} />
+
+                <TextField sx={{ mb: ".5rem" }} required id="last_name" name="last_name" label="Last Name" type="text" variant="standard" fullWidth
+                value={person.last_name} onChange={updatePerson}/>
+
+                <TextField sx={{ mb: "1.5rem" }} required id="email" name="email" label="Email" type="email" variant="standard" fullWidth
+                value={person.email} onChange={updatePerson} />
                 {/* Need to make button for setting if a person is an instructor */}
                 <FormControl fullWidth>
                     <InputLabel sx={{ mb: "2rem" }} id="is-instructor-label">Are They an Instructor?</InputLabel>
@@ -45,7 +55,8 @@ function AddPersonDialog({ open, handleClose }) {
                         id="is_instructor"
                         value={person.is_instructor}
                         label="Are They an Instructor?"
-                    // insert onChange function here
+                        name="is_instructor"
+                        onChange={updatePerson}
                     >
                         <MenuItem value={false}>No</MenuItem>
                         <MenuItem value={true}>Yes</MenuItem>
