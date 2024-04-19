@@ -10,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 
 
 export default function LandingPage() {
@@ -18,7 +19,6 @@ export default function LandingPage() {
     const people = useSelector(store => store.people);
 
     // TODO: 
-    // display list of people
     // Allow individual people to be deleted/removed
     // Add search bar for searching for specific person
     // Create dialog for adding a new person
@@ -40,6 +40,7 @@ export default function LandingPage() {
                                 <TableCell>First Name</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Instructor?</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -48,7 +49,8 @@ export default function LandingPage() {
                                     <TableCell>{person.last_name}</TableCell>
                                     <TableCell>{person.first_name}</TableCell>
                                     <TableCell>{person.email}</TableCell>
-                                    <TableCell>{person.is_instructor}</TableCell>
+                                    <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
+                                    <TableCell><Button color="error" variant="outlined">Remove</Button></TableCell>
                                 </TableRow>
                             )))}
                         </TableBody>
