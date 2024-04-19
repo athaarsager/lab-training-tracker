@@ -4,8 +4,8 @@ import axios from "axios";
 // get all people
 function* fetchPeople() {
     try {
-        const peopleResult = yield axios.get("/api/person");
-        yield put({ type: "SET_PEOPLE", payload: peopleResult});
+        const peopleResponse = yield axios.get("/api/person");
+        yield put({ type: "SET_PEOPLE", payload: peopleResponse.data});
     } catch (error) {
         console.error("ERROR in fetchPeople generator:", error);
     }
@@ -15,10 +15,10 @@ function* fetchPeople() {
 function* fetchSelectedPersonInfo(action) {
     try {
         // action.payload will be the selected person's id
-        const selectedPersonResult = yield axios.get(`/api/person/${action.payload}`);
-        const testStatusesResult = yield axios.get(`/api/training/${action.payload}`);
-        yield put({ type: "SET_SELECTED_PERSON", payload: selectedPersonResult });
-        yield put({ type: "SET_TEST_STATUSES", payload: testStatusesResult });
+        const selectedPersonResponse = yield axios.get(`/api/person/${action.payload}`);
+        const testStatusesResponse = yield axios.get(`/api/training/${action.payload}`);
+        yield put({ type: "SET_SELECTED_PERSON", payload: selectedPersonResponse.data });
+        yield put({ type: "SET_TEST_STATUSES", payload: testStatusesResponse.data });
     } catch (error) {
         console.error("ERROR fetching the selected person's information:", error);
     }

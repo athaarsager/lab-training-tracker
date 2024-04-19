@@ -4,8 +4,8 @@ import axios from "axios";
 // Fetch all trainings for display on trainings page
 function* fetchTrainings() {
     try {
-        const trainingsResult = yield axios.get("/api/training");
-        yield put({ type: "SET_TRAININGS", payload: trainingsResult });
+        const trainingsResponse = yield axios.get("/api/training");
+        yield put({ type: "SET_TRAININGS", payload: trainingsResponse.rows });
     } catch (error) {
         console.error("ERROR fetching all trainings:", error);
     }

@@ -3,14 +3,13 @@ const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-// express middleware
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static("build"));
-
 // Route Includes
- const personRouter = require("./routes/person.router");
- const trainingRouter = require("./routes/training.router");
+const personRouter = require("./routes/person.router");
+const trainingRouter = require("./routes/training.router");
+
+ // express middleware
+app.use(express.json());
+app.use(express.static("build"));
 
 // Routes
 app.use("/api/person", personRouter);

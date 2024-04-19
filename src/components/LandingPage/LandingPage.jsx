@@ -26,10 +26,11 @@ export default function LandingPage() {
     // When an individual person is clicked on, take user to detail page for that person
     useEffect(() => {
         dispatch({ type: "FETCH_PEOPLE" });
+        console.log("This is the value of people:", people);
     }, []);
     return (
         <Grid container>
-            <Grid item>
+            <Grid item xs={10}>
                 <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
                 <TableContainer component={Paper}>
                     <Table>
@@ -41,6 +42,16 @@ export default function LandingPage() {
                                 <TableCell>Instructor?</TableCell>
                             </TableRow>
                         </TableHead>
+                        <TableBody>
+                            {people?.map((person => (
+                                <TableRow key={person.id}>
+                                    <TableCell>{person.last_name}</TableCell>
+                                    <TableCell>{person.first_name}</TableCell>
+                                    <TableCell>{person.email}</TableCell>
+                                    <TableCell>{person.is_instructor}</TableCell>
+                                </TableRow>
+                            )))}
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </Grid>
