@@ -29,6 +29,7 @@ export default function LandingPage() {
     // Create dialog for adding a new person
     // Link to lab list page
     // When an individual person is clicked on, take user to detail page for that person
+    // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
     
 
