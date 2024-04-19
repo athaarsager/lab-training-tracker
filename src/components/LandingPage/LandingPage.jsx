@@ -5,6 +5,7 @@ import AddPersonDialog from "./AddPersonDialog";
 import Swal from "sweetalert2";
 import Fuse from "fuse.js";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,6 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 
 export default function LandingPage() {
@@ -32,6 +34,9 @@ export default function LandingPage() {
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
     // Search stuff
+    // This is the text input in the form field that will be used for the search
+    const [searchText, setSearchText] = useState("");
+    const [searchSubmitted, setSearchSubmitted] = useState(false);
     // The options are the settings for the search Fuse.js makes. Details in documentation for what all the option settings are
     // options are also the second parameter that has to be passed into the Fuse function
     const options = {
@@ -73,10 +78,15 @@ export default function LandingPage() {
         dispatch({ type: "FETCH_PEOPLE" });
         console.log("This is the value of people:", people);
     }, []);
+
     return (
         <Grid container>
             <Grid item xs={10}>
                 <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
+                <Box sx={{ mb: "1rem" }}>
+                    <Typography variant="h6">Find A Specific Person:</Typography>
+                    <TextField id="search" name="search" label="Search by Last Name" type="text" size="small" /><Button variant="contained">Find</Button>
+                </Box>
                 <Button variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
                 <TableContainer component={Paper}>
                     <Table>
@@ -89,16 +99,26 @@ export default function LandingPage() {
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
-                            {people?.map((person => (
-                                <TableRow key={person.id}>
-                                    <TableCell>{person.last_name}</TableCell>
-                                    <TableCell>{person.first_name}</TableCell>
-                                    <TableCell>{person.email}</TableCell>
-                                    <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                    <TableCell><Button data-person_id={person.id} color="error" variant="outlined" onClick={removePerson}>Remove</Button></TableCell>
-                                </TableRow>
-                            )))}
+                            {/* Component will display one of two views based on if a search has been submitted */}
+                            {/* Normal view is the list of everyone */}
+                            {/* If searchSubmitted, just display the search results */}
+                            {searchSubmitted ?
+                                <Box>Test</Box>
+                                :
+                                <>
+                                    {people?.map((person => (
+                                        <TableRow key={person.id}>
+                                            <TableCell>{person.last_name}</TableCell>
+                                            <TableCell>{person.first_name}</TableCell>
+                                            <TableCell>{person.email}</TableCell>
+                                            <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
+                                            <TableCell><Button data-person_id={person.id} color="error" variant="outlined" onClick={removePerson}>Remove</Button></TableCell>
+                                        </TableRow>
+                                    )))}
+                                </>
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
