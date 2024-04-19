@@ -29,10 +29,6 @@ export default function LandingPage() {
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
     const closeDialog = () => setDialogIsOpen(false);
 
-    // TODO: 
-    // Link to lab list page
-    // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
-
     // Search stuff
     // This is the text input in the form field that will be used for the search
     const [searchText, setSearchText] = useState("");
