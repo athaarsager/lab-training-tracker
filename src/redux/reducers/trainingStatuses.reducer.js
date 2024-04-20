@@ -1,4 +1,4 @@
-const testStatusesReducer = (state = [], action) => {
+const trainingStatusesReducer = (state = [], action) => {
     switch (action.type) {
         case "SET_TEST_STATUSES":
             return action.payload;
@@ -9,4 +9,4 @@ const testStatusesReducer = (state = [], action) => {
     }
 }
 
-export default testStatusesReducer;
+export default trainingStatusesReducer;

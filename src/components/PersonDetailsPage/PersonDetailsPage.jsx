@@ -21,7 +21,6 @@ function PersonDetailsPage() {
     // Link to lab list page
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
-    // Display person's full details
     // Display all trainings and whether the person has taken them
     // Allow trainings to be updated
     // Allow a person's information to be updated from here
@@ -35,7 +34,7 @@ function PersonDetailsPage() {
             <Grid item xs={10}>
                 <Typography variant="h5">Person Details Page</Typography>
                 {/* Make two tables: one for person's info, the other for training info */}
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} sx={{ mb: "2rem" }}>
                     <Table>
                         <TableHead>
                             <TableRow>

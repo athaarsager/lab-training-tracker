@@ -16,9 +16,9 @@ function* fetchSelectedPersonInfo(action) {
     try {
         // action.payload will be the selected person's id
         const selectedPersonResponse = yield axios.get(`/api/person/${action.payload}`);
-        const testStatusesResponse = yield axios.get(`/api/training/${action.payload}`);
+        const trainingStatusesResponse = yield axios.get(`/api/training/${action.payload}`);
         yield put({ type: "SET_SELECTED_PERSON", payload: selectedPersonResponse.data[0] });
-        yield put({ type: "SET_TEST_STATUSES", payload: testStatusesResponse.data });
+        yield put({ type: "SET_TEST_STATUSES", payload: trainingStatusesResponse.data });
     } catch (error) {
         console.error("ERROR fetching the selected person's information:", error);
     }
