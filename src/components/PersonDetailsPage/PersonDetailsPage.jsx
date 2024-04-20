@@ -16,7 +16,7 @@ function PersonDetailsPage() {
     const dispatch = useDispatch();
     const personId = useParams().id;
     const person = useSelector(store => store.selectedPerson);
-    
+
     // TODO: 
     // Link to lab list page
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
@@ -27,7 +27,7 @@ function PersonDetailsPage() {
     // Allow a person's information to be updated from here
 
     useEffect(() => {
-        dispatch({ type: "FETCH_SELECTED_PERSON", payload: personId });
+        dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
     }, []);
 
     return (
@@ -35,6 +35,28 @@ function PersonDetailsPage() {
             <Grid item xs={10}>
                 <Typography variant="h5">Person Details Page</Typography>
                 {/* Make two tables: one for person's info, the other for training info */}
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Last Name</TableCell>
+                                <TableCell>First Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Instructor?</TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>{person.last_name}</TableCell>
+                                <TableCell>{person.first_name}</TableCell>
+                                <TableCell>{person.email}</TableCell>
+                                <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
+                                <TableCell><Button data-person_id={person.id} color="secondary" variant="outlined">Update Info</Button></TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Grid>
         </Grid>
     );

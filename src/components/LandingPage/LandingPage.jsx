@@ -120,7 +120,7 @@ export default function LandingPage() {
                             {/* Page will normally just display the array of people */}
                             {/* But if a search has been submitted, that array will be the search results */}
                             {/* This is constrolled by the peopleToDisplay useState variable */}
-                            {peopleToDisplay?.map(((person, index) => (
+                            {peopleToDisplay?.map((person => (
                                 // Need to use e.currentTarget in the navigate string so that the row is always the thing that is controlling the event, not the table cell
                                 <TableRow sx={{ cursor: "pointer" }} key={person.id} data-person_id={person.id} onClick={(e) => navigate(`/${e.currentTarget.dataset.person_id}/details`)}>
                                     <TableCell>{person.last_name}</TableCell>
