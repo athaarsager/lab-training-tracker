@@ -21,9 +21,9 @@ router.get("/:id", async (req, res) => {
     try {
         // req.params.id will be the id of the person clicked on
         const queryText = `
-        SELECT "person_id", "training_id", "person_training"."id" AS "person_training_id", "date_taken" FROM "training"
-        JOIN "person_training" ON "training_id" = "training"."id"
-        WHERE "person_id" = $1;
+        SELECT "training"."id" AS "training_id", "title", "short_title", "validation_length", "date_taken",  "person_id",  "person_training"."id" AS "person_training_id" FROM "training"
+        LEFT JOIN "person_training" ON "training_id" = "training"."id" AND "person_id" = $1
+        ORDER BY "training_id";
         `;
         const result = await pool.query(queryText, [req.params.id]);
         res.send(result.rows);

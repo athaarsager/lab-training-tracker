@@ -1,8 +1,8 @@
 const trainingStatusesReducer = (state = [], action) => {
     switch (action.type) {
-        case "SET_TEST_STATUSES":
+        case "SET_TRAINING_STATUSES":
             return action.payload;
-        case "CLEAR_TEST_STATUSES":
+        case "CLEAR_TRAINING_STATUSES":
             return state;
         default:
             return state;

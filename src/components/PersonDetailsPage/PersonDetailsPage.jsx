@@ -16,8 +16,7 @@ function PersonDetailsPage() {
     const dispatch = useDispatch();
     const personId = useParams().id;
     const person = useSelector(store => store.selectedPerson);
-    const trainings = useSelector(store => store.trainings);
-    const trainingStatuses = useSelector(store => store.trainingStatuses);
+    const trainings = useSelector(store => store.trainingStatuses);
 
     // TODO: 
     // Link to training list page
@@ -32,7 +31,6 @@ function PersonDetailsPage() {
 
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
-        dispatch({ type: "FETCH_TRAININGS" });
     }, []);
 
     return (
@@ -78,7 +76,7 @@ function PersonDetailsPage() {
                             <TableRow>
                                 <TableCell>{training.title}</TableCell>
                                 <TableCell>{training.short_title}</TableCell>
-                                <TableCell>Placeholder Text</TableCell>
+                                <TableCell>{training.date_taken}</TableCell>
                                 <TableCell>Placeholder Text</TableCell>
                             </TableRow>
                          ))}
