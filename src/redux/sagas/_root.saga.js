@@ -5,6 +5,6 @@ import trainingSaga from "./training.saga";
 export default function* rootSaga() {
     yield all([
         personSaga(),
-        trainingSaga
+        trainingSaga()
     ]);
 }

@@ -5,7 +5,7 @@ import axios from "axios";
 function* fetchTrainings() {
     try {
         const trainingsResponse = yield axios.get("/api/training");
-        yield put({ type: "SET_TRAININGS", payload: trainingsResponse.rows });
+        yield put({ type: "SET_TRAININGS", payload: trainingsResponse.data });
     } catch (error) {
         console.error("ERROR fetching all trainings:", error);
     }

@@ -16,17 +16,23 @@ function PersonDetailsPage() {
     const dispatch = useDispatch();
     const personId = useParams().id;
     const person = useSelector(store => store.selectedPerson);
+    const trainings = useSelector(store => store.trainings);
+    const trainingStatuses = useSelector(store => store.trainingStatuses);
 
     // TODO: 
-    // Link to lab list page
+    // Link to training list page
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
 
     // Display all trainings and whether the person has taken them
+
+
+    // Calculate logic for when next training is due
     // Allow trainings to be updated
     // Allow a person's information to be updated from here
 
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
+        dispatch({ type: "FETCH_TRAININGS" });
     }, []);
 
     return (
@@ -53,6 +59,29 @@ function PersonDetailsPage() {
                                 <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
                                 <TableCell><Button data-person_id={person.id} color="secondary" variant="outlined">Update Info</Button></TableCell>
                             </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <Typography variant="h6" sx={{ mb: "1rem" }}>Trainings</Typography>
+                <TableContainer component={Paper}> 
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Full Title</TableCell>
+                                <TableCell>Short Title</TableCell>
+                                <TableCell>Date Last Taken</TableCell>
+                                <TableCell>Due Again In</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                         {trainings.map(training => (
+                            <TableRow>
+                                <TableCell>{training.title}</TableCell>
+                                <TableCell>{training.short_title}</TableCell>
+                                <TableCell>Placeholder Text</TableCell>
+                                <TableCell>Placeholder Text</TableCell>
+                            </TableRow>
+                         ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
