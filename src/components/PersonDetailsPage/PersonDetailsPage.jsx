@@ -25,8 +25,10 @@ function PersonDetailsPage() {
 
     // Display all trainings and whether the person has taken them
 
-
     // Calculate logic for when next training is due
+
+    const today = moment()._d;
+    
     // Allow trainings to be updated
     // Allow a person's information to be updated from here
 
@@ -74,10 +76,13 @@ function PersonDetailsPage() {
                         </TableHead>
                         <TableBody>
                          {trainings.map(training => (
-                            <TableRow>
+                            <TableRow key={training.training_id}>
                                 <TableCell>{training.title}</TableCell>
                                 <TableCell>{training.short_title}</TableCell>
-                                <TableCell>{training.date_taken}</TableCell>
+                                {/* Move the take training button to the last column for consistency in the end
+                                Will need to write a more complex function to determine what is displayed in the last column
+                                For now, take training button can sit in the below column just as a placeholder */}
+                                <TableCell>{training.date_taken ? training.date_taken : <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
                                 <TableCell>Placeholder Text</TableCell>
                             </TableRow>
                          ))}
