@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import EditPersonDialog from "../PersonDialog/PersonDialog.jsx";
 import moment from "moment";
 import "./PersonDetailsPage.css";
 import Grid from "@mui/material/Grid";
@@ -26,6 +27,9 @@ function PersonDetailsPage() {
     // The above may not be necessary based on how I made the queries on the person details page
 
     // Allow a person's information to be updated from here
+    // Dialog variables
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
+    const closeDialog = () => setDialogIsOpen(false);
 
     // will pass each training status into this function individually in the HTML below
     const calculateDueDate = (training) => {
@@ -95,6 +99,10 @@ function PersonDetailsPage() {
         return () => dispatch({ type: "CLEAR_SELECTED_PERSON" });
     }, []);
 
+    useEffect(() => {
+        console.log("This is the selectedPerson:", person);
+    }, [person]);
+
     return (
         <Grid container>
             <Grid item xs={10}>
@@ -117,7 +125,7 @@ function PersonDetailsPage() {
                                 <TableCell>{person.first_name}</TableCell>
                                 <TableCell>{person.email}</TableCell>
                                 <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                <TableCell><Button data-person_id={person.id} color="secondary" variant="outlined">Update Info</Button></TableCell>
+                                <TableCell><Button data-person_id={person.id} onClick={(e) => setDialogIsOpen(true)} color="secondary" variant="outlined">Update Info</Button></TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
@@ -152,6 +160,7 @@ function PersonDetailsPage() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <EditPersonDialog open={dialogIsOpen} handleClose={closeDialog} selectedPerson={person}/>
             </Grid>
         </Grid>
     );

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -15,19 +15,19 @@ import Box from "@mui/material/Box";
 function PersonDialog({ open, handleClose, selectedPerson }) {
     const dispatch = useDispatch();
     const [person, setPerson] = useState(
-        selectedPerson ? 
-        {
-            first_name: selectedPerson.first_name,
-            last_name: selectedPerson.last_name,
-            email: selectedPerson.email,
-            is_instructor: selectedPerson.is_instructor
-        } :
-        {
-            first_name: "",
-            last_name: "",
-            email: "",
-            is_instructor: false
-        }
+        selectedPerson ?
+            {
+                first_name: selectedPerson.first_name,
+                last_name: selectedPerson.last_name,
+                email: selectedPerson.email,
+                is_instructor: selectedPerson.is_instructor
+            } :
+            {
+                first_name: "",
+                last_name: "",
+                email: "",
+                is_instructor: false
+            }
     );
 
     const updatePerson = (e) => {
@@ -35,7 +35,7 @@ function PersonDialog({ open, handleClose, selectedPerson }) {
         setPerson((state) => ({ ...state, [name]: value }));
     }
 
-   
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // first option submits if existing person has been loaded into the dialog
@@ -45,14 +45,6 @@ function PersonDialog({ open, handleClose, selectedPerson }) {
         } else {
             dispatch({ type: "ADD_PERSON", payload: person });
         }
-        setPerson(
-            {
-                first_name: "",
-                last_name: "",
-                email: "",
-                is_instructor: false
-            }
-        );
         handleClose();
         Swal.fire({
             title: "Success!",
@@ -65,15 +57,21 @@ function PersonDialog({ open, handleClose, selectedPerson }) {
 
     const closeDialog = () => {
         handleClose();
-        setPerson(
-            {
-                first_name: "",
-                last_name: "",
-                email: "",
-                is_instructor: false
-            }
-        );
+        if (!selectedPerson) {
+            setPerson(
+                {
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    is_instructor: false
+                }
+            );
+        }
     }
+
+    useEffect(() => {
+        console.log("In dialog. This is the selected person:", selectedPerson);
+    }, [open]);
 
     return (
         <Box sx={{ minWidth: "50vh" }}>
@@ -82,7 +80,7 @@ function PersonDialog({ open, handleClose, selectedPerson }) {
                 onClose={closeDialog}
                 PaperProps={{ component: "form", onSubmit: handleSubmit, sx: { width: "50vh", padding: "1rem" } }}
             >
-                <DialogTitle>Add a New Person</DialogTitle>
+                <DialogTitle>{selectedPerson ? "Update Person's Info" : "Add a New Person"}</DialogTitle>
                 <TextField sx={{ mb: ".5rem" }} required id="first_name" name="first_name" label="First Name" type="text" variant="standard" fullWidth
                     value={person.first_name} onChange={updatePerson} />
 
