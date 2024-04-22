@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import LandingPage from '../LandingPage/LandingPage';
 import PersonDetailsPage from '../PersonDetailsPage/PersonDetailsPage';
-import NavBar from '../NavBar/NavBar.jsx';
+import NavBar from '../NavBar/NavBar';
+import TrainingsPage from '../TrainingsPage/TrainingsPage';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -22,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/:id/details" element={<PersonDetailsPage />} />
+            <Route path="/trainings" element={<TrainingsPage />} />
           </Routes>
         </Grid>
       </Grid >
