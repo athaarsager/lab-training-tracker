@@ -38,7 +38,7 @@ function* addPersonTrainingEntry(action) {
 // Update when a person has re-taken a training
 function* updateTrainingRecords(action) {
     try {
-        // action.payload will be an object with the following keys: person_training_id
+        // action.payload will be an object with the following keys: person_training_id, person_id
         yield axios.put(`/api/training/update_date/${action.payload.person_training_id}`);
         // need to update the most recent training date on the sected person's page
         yield put({ type: "FETCH_SELECTED_PERSON_INFO", payload: action.payload.person_id });

@@ -71,7 +71,7 @@ function PersonDetailsPage() {
             return;
         }
         // otherwise, just update existing entry
-        dispatch({ type: "UPDATE_TRAINING_RECORDS", payload: { person_training_id } });
+        dispatch({ type: "UPDATE_TRAINING_RECORDS", payload: { person_training_id, person_id} });
     }
 
     // Allow a person's information to be updated from here
