@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -17,10 +19,29 @@ function TrainingsPage() {
     // When designing the dialog box, should make it reusable for creating a new training and editing an existing one
     // For editing an existing training it should pre-populated with the training that was clicked on
     // May be tricky to set and unset that variable...maybe need to create new variable in the store?
+
+    useEffect(() => {
+        
+    }, []);
     return (
         <Grid container>
             <Grid item>
                 <Typography variant="h4">Welcome to the Trainings Page!</Typography>
+                <TableContainer component={Paper} sx={{ mb: "2rem" }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Full Title</TableCell>
+                                <TableCell>Short Title</TableCell>
+                                <TableCell>Length Good For</TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Grid>
         </Grid>
     );
