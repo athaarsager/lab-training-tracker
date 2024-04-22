@@ -15,20 +15,12 @@ import Box from "@mui/material/Box";
 function PersonDialog({ open, handleClose, selectedPerson, personId }) {
     const dispatch = useDispatch();
     const [person, setPerson] = useState(
-        selectedPerson ?
-            {
-                id: personId,
-                first_name: selectedPerson.first_name,
-                last_name: selectedPerson.last_name,
-                email: selectedPerson.email,
-                is_instructor: selectedPerson.is_instructor
-            } :
-            {
-                first_name: "",
-                last_name: "",
-                email: "",
-                is_instructor: false
-            }
+        {
+            first_name: "",
+            last_name: "",
+            email: "",
+            is_instructor: false
+        }
     );
 
     const updatePerson = (e) => {
@@ -71,8 +63,16 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
     }
 
     useEffect(() => {
-        console.log("In dialog. This is the selected person:", selectedPerson);
-    }, [open]);
+        if (selectedPerson) {
+            setPerson({
+                id: personId,
+                first_name: selectedPerson.first_name,
+                last_name: selectedPerson.last_name,
+                email: selectedPerson.email,
+                is_instructor: selectedPerson.is_instructor
+            });
+        }
+    }, [selectedPerson]);
 
     return (
         <Box sx={{ minWidth: "50vh" }}>
