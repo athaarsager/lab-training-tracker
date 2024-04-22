@@ -47,7 +47,7 @@ function PersonDetailsPage() {
         } else if (yearDiff < 1) {
             return "Training due in less than 1 year";
         } else {
-            return `Training not due for another ${yearDiff} year(s).`;
+            return `Training not due for over ${yearDiff} year(s).`;
         }
     }
 
