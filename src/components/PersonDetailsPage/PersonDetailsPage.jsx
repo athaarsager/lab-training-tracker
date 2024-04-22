@@ -22,15 +22,42 @@ function PersonDetailsPage() {
     // TODO: 
     // Link to training list page
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
-
-    // Display all trainings and whether the person has taken them
+    // The above may not be necessary based on how I made the queries on the person details page
 
     // Calculate logic for when next training is due
 
-    const today = moment()._d;
+     // will pass each training status into this function individually in the HTML below
+     const calculateDueDate = (training) => {
+        if (!training.date_taken) {
+            return "Training Not Taken";
+        }
+        const dateTaken = training.date_taken;
+        console.log("This is the dateTaken:", moment(training.date_taken)._d);
+        const today = moment();
+        const dateDue = moment(dateTaken).add(training.validation_length, "years");
+        const yearDiff = dateDue.diff(today, "years");
+        // Need to pass in true as final parameter to make this number as accurate as possible
+        // Then need to round up to get to the nearest whole day, so that due dates are actually a full year apart
+        // Otherwise, off by one
+        const dayDiff = Math.ceil(dateDue.diff(today, "days", true));
+        
+        if (dayDiff <= 0) {
+            return "Training Due";
+        } else if (dayDiff == 1) {
+            return "1 day"
+        } else if (dayDiff <= 90) {
+            return `Training due in ${dayDiff} days`;
+        } else if(yearDiff < 1) {
+            return "Training due in less than 1 year";
+        } else {
+        return `Training not due for another ${yearDiff} year(s).`;
+        }
+     }
     
     // Allow trainings to be updated
     // Allow a person's information to be updated from here
+    
+   
 
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
@@ -82,8 +109,8 @@ function PersonDetailsPage() {
                                 {/* Move the take training button to the last column for consistency in the end
                                 Will need to write a more complex function to determine what is displayed in the last column
                                 For now, take training button can sit in the below column just as a placeholder */}
-                                <TableCell>{training.date_taken ? training.date_taken : <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
-                                <TableCell>Placeholder Text</TableCell>
+                                <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
+                                <TableCell>{calculateDueDate(training)}</TableCell>
                             </TableRow>
                          ))}
                         </TableBody>
