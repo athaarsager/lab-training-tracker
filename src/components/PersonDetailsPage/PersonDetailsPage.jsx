@@ -58,7 +58,7 @@ function PersonDetailsPage() {
         const result = calculateDueDate(training);
         if (result.includes("day")) {
             return "due-soon";
-        } else if(result === "Training Due") {
+        } else if(result === "Training Due" || result === "Training Not Taken") {
             return "due-now";
         }
     }
