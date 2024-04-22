@@ -76,7 +76,7 @@ export default function LandingPage() {
                 dispatch({ type: "REMOVE_PERSON", payload: e.target.dataset.person_id });
                 Swal.fire({
                     title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    text: "The person has been removed from the system.",
                     icon: "success",
                     iconColor: "#66bb6a",
                     confirmButtonColor: "#42a5f5"

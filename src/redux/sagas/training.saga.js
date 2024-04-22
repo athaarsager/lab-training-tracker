@@ -63,7 +63,7 @@ function* updateTraining(action) {
 function* removeTraining(action) {
     try {
         // action.payload will just be the training's id
-        yield axios.delete(`/api/training/${action.payload.id}`);
+        yield axios.delete(`/api/training/${action.payload}`);
         // need to refresh the list of trainings
         yield put({ type: "FETCH_TRAININGS" });
     } catch (error) {
