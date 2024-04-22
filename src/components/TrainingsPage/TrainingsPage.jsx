@@ -48,8 +48,8 @@ function TrainingsPage() {
                                 <TableCell>{training.title}</TableCell>
                                 <TableCell>{training.short_title}</TableCell>
                                 <TableCell>{training.validation_length}</TableCell>
-                                <Button variant="outlined" color="secondary">Edit Training</Button>
-                                <Button variant="outlined" color="error">Delete Training</Button>
+                                <TableCell><Button variant="outlined" color="secondary">Edit Training</Button></TableCell>
+                                <TableCell><Button variant="outlined" color="error">Delete Training</Button></TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
