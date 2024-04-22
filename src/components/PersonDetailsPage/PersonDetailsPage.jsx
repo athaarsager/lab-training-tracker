@@ -125,7 +125,7 @@ function PersonDetailsPage() {
                                 <TableCell>{person.first_name}</TableCell>
                                 <TableCell>{person.email}</TableCell>
                                 <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                <TableCell><Button data-person_id={person.id} onClick={(e) => setDialogIsOpen(true)} color="secondary" variant="outlined">Update Info</Button></TableCell>
+                                <TableCell><Button onClick={(e) => setDialogIsOpen(true)} color="secondary" variant="outlined">Update Info</Button></TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
@@ -160,7 +160,7 @@ function PersonDetailsPage() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <EditPersonDialog open={dialogIsOpen} handleClose={closeDialog} selectedPerson={person}/>
+                <EditPersonDialog open={dialogIsOpen} handleClose={closeDialog} selectedPerson={person} personId={personId}/>
             </Grid>
         </Grid>
     );
