@@ -51,6 +51,17 @@ function PersonDetailsPage() {
         }
     }
 
+    // This function takes the result from the above function to determine a css class
+    // That will set the background color of the cell
+    const determineDueDateClass = (training) => {
+        const result = calculateDueDate(training);
+        if (result.includes("day")) {
+            return "due-soon";
+        } else if(result === "Training Due") {
+            return "due-now";
+        }
+    }
+
     const displayButton = (training) => {
 
         if (!training.date_taken || calculateDueDate(training) === "Training Due") {
@@ -59,9 +70,9 @@ function PersonDetailsPage() {
             return false;
         }
     }
-    // Allow trainings to be updated
 
-    const updateTraining = (e) => {
+    // Allow training records to be updated
+    const updateTrainingRecords = (e) => {
         const person_id = personId;
         const training_id = e.target.dataset.training_id;
         const person_training_id = e.target.dataset.person_training_id;
@@ -125,11 +136,11 @@ function PersonDetailsPage() {
                                     <TableCell>{training.title}</TableCell>
                                     <TableCell>{training.short_title}</TableCell>
                                     <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : "N/A"}</TableCell>
-                                    <TableCell>{calculateDueDate(training)}</TableCell>
+                                    <TableCell className={determineDueDateClass(training)}>{calculateDueDate(training)}</TableCell>
                                     <TableCell>{displayButton(training) &&
                                         <Button data-training_id={training.training_id}
                                             data-person_training_id={training.person_training_id}
-                                            color="success" variant="outlined" onClick={updateTraining}>
+                                            color="success" variant="outlined" onClick={updateTrainingRecords}>
                                             Take Training
                                         </Button>}</TableCell>
                                 </TableRow>
