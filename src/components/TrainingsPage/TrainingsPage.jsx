@@ -31,6 +31,7 @@ function TrainingsPage() {
         <Grid container>
             <Grid item>
                 <Typography variant="h4">Trainings</Typography>
+                <Button variant="contained">Add a New Training</Button>
                 <TableContainer component={Paper} sx={{ mb: "2rem" }}>
                     <Table>
                         <TableHead>
@@ -48,8 +49,8 @@ function TrainingsPage() {
                                 <TableCell>{training.title}</TableCell>
                                 <TableCell>{training.short_title}</TableCell>
                                 <TableCell>{training.validation_length}</TableCell>
-                                <TableCell><Button variant="outlined" color="secondary">Edit Training</Button></TableCell>
-                                <TableCell><Button variant="outlined" color="error">Delete Training</Button></TableCell>
+                                <TableCell><Button data-training_id={training.id} variant="outlined" color="secondary">Edit Training</Button></TableCell>
+                                <TableCell><Button data-training_id={training.id} variant="outlined" color="error">Delete Training</Button></TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
