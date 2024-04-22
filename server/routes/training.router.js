@@ -57,7 +57,7 @@ router.post("/:id", async (req, res) => {
         // going to assume power user is notified immediately when a person completes a training
         // so there won't be a date picker for choosing the date. Will default to date when records are updated
         const personId = req.params.id;
-        const trainingId = req.body.id;
+        const trainingId = req.body.training_id;
         const queryText =  `
         INSERT INTO "person_training" ("person_id", "training_id")
         VALUES ($1, $2);

@@ -24,13 +24,12 @@ function PersonDetailsPage() {
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
     // The above may not be necessary based on how I made the queries on the person details page
 
-     // will pass each training status into this function individually in the HTML below
-     const calculateDueDate = (training) => {
+    // will pass each training status into this function individually in the HTML below
+    const calculateDueDate = (training) => {
         if (!training.date_taken) {
             return "Training Not Taken";
         }
         const dateTaken = training.date_taken;
-        console.log("This is the dateTaken:", moment(training.date_taken)._d);
         const today = moment();
         const dateDue = moment(dateTaken).add(training.validation_length, "years");
         const yearDiff = dateDue.diff(today, "years");
@@ -38,31 +37,45 @@ function PersonDetailsPage() {
         // Then need to round up to get to the nearest whole day, so that due dates are actually a full year apart
         // Otherwise, off by one
         const dayDiff = Math.ceil(dateDue.diff(today, "days", true));
-        
+
         if (dayDiff <= 0) {
             return "Training Due";
         } else if (dayDiff == 1) {
             return "1 day"
         } else if (dayDiff <= 90) {
             return `Training due in ${dayDiff} days`;
-        } else if(yearDiff < 1) {
+        } else if (yearDiff < 1) {
             return "Training due in less than 1 year";
         } else {
-        return `Training not due for another ${yearDiff} year(s).`;
+            return `Training not due for another ${yearDiff} year(s).`;
         }
-     }
-    
-     const displayButton = (training) => {
+    }
+
+    const displayButton = (training) => {
 
         if (!training.date_taken || calculateDueDate(training) === "Training Due") {
             return true;
         } else {
             return false;
         }
-     }
+    }
     // Allow trainings to be updated
+
+    const updateTraining = (e) => {
+        const person_id = personId;
+        const training_id = e.target.dataset.training_id;
+        const person_training_id = e.target.dataset.person_training_id;
+        // if person_training_id is null, need to add a new entry to the person_training table
+        if (!person_training_id) {
+            dispatch({ type: "ADD_PERSON_TRAINING_ENTRY", payload: { person_id, training_id } });
+            return;
+        }
+        // otherwise, just update existing entry
+        dispatch({ type: "UPDATE_TRAINING_RECORDS", payload: { person_training_id } });
+    }
+
     // Allow a person's information to be updated from here
-    
+
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
     }, []);
@@ -95,7 +108,7 @@ function PersonDetailsPage() {
                     </Table>
                 </TableContainer>
                 <Typography variant="h6" sx={{ mb: "1rem" }}>Trainings</Typography>
-                <TableContainer component={Paper}> 
+                <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -107,18 +120,20 @@ function PersonDetailsPage() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                         {trainings.map(training => (
-                            <TableRow key={training.training_id}>
-                                <TableCell>{training.title}</TableCell>
-                                <TableCell>{training.short_title}</TableCell>
-                                {/* Move the take training button to the last column for consistency in the end
-                                Will need to write a more complex function to determine what is displayed in the last column
-                                For now, take training button can sit in the below column just as a placeholder */}
-                                <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : "N/A"}</TableCell>
-                                <TableCell>{calculateDueDate(training)}</TableCell>
-                                <TableCell>{displayButton(training) && <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
-                            </TableRow>
-                         ))}
+                            {trainings.map(training => (
+                                <TableRow key={training.training_id}>
+                                    <TableCell>{training.title}</TableCell>
+                                    <TableCell>{training.short_title}</TableCell>
+                                    <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : "N/A"}</TableCell>
+                                    <TableCell>{calculateDueDate(training)}</TableCell>
+                                    <TableCell>{displayButton(training) &&
+                                        <Button data-training_id={training.training_id}
+                                            data-person_training_id={training.person_training_id}
+                                            color="success" variant="outlined" onClick={updateTraining}>
+                                            Take Training
+                                        </Button>}</TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
