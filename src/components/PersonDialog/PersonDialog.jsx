@@ -12,9 +12,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 
-function AddPersonDialog({ open, handleClose }) {
+function PersonDialog({ open, handleClose, selectedPerson }) {
     const dispatch = useDispatch();
     const [person, setPerson] = useState(
+        selectedPerson ? 
+        {
+            first_name: selectedPerson.first_name,
+            last_name: selectedPerson.last_name,
+            email: selectedPerson.email,
+            is_instructor: selectedPerson.is_instructor
+        } :
         {
             first_name: "",
             last_name: "",
@@ -28,9 +35,16 @@ function AddPersonDialog({ open, handleClose }) {
         setPerson((state) => ({ ...state, [name]: value }));
     }
 
+   
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({ type: "ADD_PERSON", payload: person });
+        // first option submits if existing person has been loaded into the dialog
+        // second option submits if adding a brand new person
+        if (selectedPerson) {
+            dispatch({ type: "UPDATE_PERSON", payload: person });
+        } else {
+            dispatch({ type: "ADD_PERSON", payload: person });
+        }
         setPerson(
             {
                 first_name: "",
@@ -46,7 +60,7 @@ function AddPersonDialog({ open, handleClose }) {
             icon: "success",
             iconColor: "#66bb6a",
             confirmButtonColor: "#42a5f5"
-          });
+        });
     }
 
     const closeDialog = () => {
@@ -101,4 +115,4 @@ function AddPersonDialog({ open, handleClose }) {
     );
 }
 
-export default AddPersonDialog;
+export default PersonDialog;

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import AddPersonDialog from "./PersonDialog";
+import AddPersonDialog from "../PersonDialog/PersonDialog.jsx";
 import Swal from "sweetalert2";
 import Fuse from "fuse.js";
 import Grid from "@mui/material/Grid";

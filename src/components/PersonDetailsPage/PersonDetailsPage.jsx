@@ -90,6 +90,9 @@ function PersonDetailsPage() {
 
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
+        // run cleanup function to clear the selected person so the dialog does not display incorrect
+        // information the next time it appears on screen
+        return () => dispatch({ type: "CLEAR_SELECTED_PERSON" });
     }, []);
 
     return (
