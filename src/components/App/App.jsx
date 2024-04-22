@@ -1,3 +1,4 @@
+import "./App.css";
 import LandingPage from '../LandingPage/LandingPage';
 import PersonDetailsPage from '../PersonDetailsPage/PersonDetailsPage';
 import NavBar from '../NavBar/NavBar';
@@ -19,6 +20,8 @@ function App() {
       <Grid container>
         <Grid item xs={12}>
           <NavBar />
+        </Grid>
+        <Grid item xs={12}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/:id/details" element={<PersonDetailsPage />} />
