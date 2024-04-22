@@ -8,12 +8,16 @@ function NavBar() {
             <Grid item xs={10}>
             </Grid>
             <Grid item xs={2} display={"flex"} justifyContent={"flex-end"} alignItems={"center"}>
-                    <NavLink className={({ isActive }) => 
-                [
-                    isActive ? "active": "link"
-                ]
+                <NavLink to="/" className={({ isActive }) =>
+                    [
+                        isActive ? "active" : "link"
+                    ]
                 }>Home</NavLink>
-                    <NavLink>Trainings</NavLink>
+                <NavLink to="/trainings" className={({ isActive }) =>
+                    [
+                        isActive ? "active" : "link"
+                    ]
+                }>Trainings</NavLink>
             </Grid>
         </Grid>
     );
