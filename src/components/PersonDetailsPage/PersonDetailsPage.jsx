@@ -25,6 +25,8 @@ function PersonDetailsPage() {
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
     // The above may not be necessary based on how I made the queries on the person details page
 
+    // Allow a person's information to be updated from here
+
     // will pass each training status into this function individually in the HTML below
     const calculateDueDate = (training) => {
         if (!training.date_taken) {
@@ -58,7 +60,7 @@ function PersonDetailsPage() {
         const result = calculateDueDate(training);
         if (result.includes("day")) {
             return "due-soon";
-        } else if(result === "Training Due" || result === "Training Not Taken") {
+        } else if (result === "Training Due" || result === "Training Not Taken") {
             return "due-now";
         }
     }
@@ -83,10 +85,8 @@ function PersonDetailsPage() {
             return;
         }
         // otherwise, just update existing entry
-        dispatch({ type: "UPDATE_TRAINING_RECORDS", payload: { person_training_id, person_id} });
+        dispatch({ type: "UPDATE_TRAINING_RECORDS", payload: { person_training_id, person_id } });
     }
-
-    // Allow a person's information to be updated from here
 
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
