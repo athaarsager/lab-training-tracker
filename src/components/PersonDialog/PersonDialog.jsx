@@ -35,17 +35,25 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
         // second option submits if adding a brand new person
         if (selectedPerson) {
             dispatch({ type: "UPDATE_PERSON", payload: person });
+            Swal.fire({
+                title: "Success!",
+                text: "Person's Info Updated!",
+                icon: "success",
+                iconColor: "#66bb6a",
+                confirmButtonColor: "#42a5f5"
+            });
         } else {
             dispatch({ type: "ADD_PERSON", payload: person });
+            Swal.fire({
+                title: "Success!",
+                text: "New Person Successfully Added!",
+                icon: "success",
+                iconColor: "#66bb6a",
+                confirmButtonColor: "#42a5f5"
+            });
         }
         handleClose();
-        Swal.fire({
-            title: "Success!",
-            text: "New Person Successfully Added!",
-            icon: "success",
-            iconColor: "#66bb6a",
-            confirmButtonColor: "#42a5f5"
-        });
+        
     }
 
     const closeDialog = () => {
