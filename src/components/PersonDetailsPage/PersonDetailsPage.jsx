@@ -24,8 +24,6 @@ function PersonDetailsPage() {
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
     // The above may not be necessary based on how I made the queries on the person details page
 
-    // Calculate logic for when next training is due
-
      // will pass each training status into this function individually in the HTML below
      const calculateDueDate = (training) => {
         if (!training.date_taken) {
@@ -54,11 +52,17 @@ function PersonDetailsPage() {
         }
      }
     
+     const displayButton = (training) => {
+
+        if (!training.date_taken || calculateDueDate(training) === "Training Due") {
+            return true;
+        } else {
+            return false;
+        }
+     }
     // Allow trainings to be updated
     // Allow a person's information to be updated from here
     
-   
-
     useEffect(() => {
         dispatch({ type: "FETCH_SELECTED_PERSON_INFO", payload: personId });
     }, []);
@@ -99,6 +103,7 @@ function PersonDetailsPage() {
                                 <TableCell>Short Title</TableCell>
                                 <TableCell>Date Last Taken</TableCell>
                                 <TableCell>Due Again In</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -109,8 +114,9 @@ function PersonDetailsPage() {
                                 {/* Move the take training button to the last column for consistency in the end
                                 Will need to write a more complex function to determine what is displayed in the last column
                                 For now, take training button can sit in the below column just as a placeholder */}
-                                <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
+                                <TableCell>{training.date_taken ? moment(training.date_taken).format("MM-DD-YYYY") : "N/A"}</TableCell>
                                 <TableCell>{calculateDueDate(training)}</TableCell>
+                                <TableCell>{displayButton(training) && <Button color="success" variant="outlined">Take Training</Button>}</TableCell>
                             </TableRow>
                          ))}
                         </TableBody>
