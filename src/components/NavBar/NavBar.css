@@ -1,0 +1,12 @@
+.active {
+    font-weight: 700;
+    color: lightgray;
+}
+
+.link {
+    color: white;
+}
+
+.active, .link {
+    margin-right: 1rem;
+}
