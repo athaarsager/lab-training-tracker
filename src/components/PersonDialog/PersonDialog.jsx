@@ -28,6 +28,19 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
         setPerson((state) => ({ ...state, [name]: value }));
     }
 
+    const closeDialog = () => {
+        handleClose();
+        if (!selectedPerson) {
+            setPerson(
+                {
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    is_instructor: false
+                }
+            );
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,22 +65,7 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
                 confirmButtonColor: "#42a5f5"
             });
         }
-        handleClose();
-        
-    }
-
-    const closeDialog = () => {
-        handleClose();
-        if (!selectedPerson) {
-            setPerson(
-                {
-                    first_name: "",
-                    last_name: "",
-                    email: "",
-                    is_instructor: false
-                }
-            );
-        }
+        closeDialog();
     }
 
     useEffect(() => {
