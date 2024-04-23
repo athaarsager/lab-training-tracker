@@ -50,7 +50,7 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
             dispatch({ type: "UPDATE_PERSON", payload: person });
             Swal.fire({
                 title: "Success!",
-                text: "Person's Info Updated!",
+                text: `${person.first_name}'s Info Updated!`,
                 icon: "success",
                 iconColor: "#66bb6a",
                 confirmButtonColor: "#42a5f5"
