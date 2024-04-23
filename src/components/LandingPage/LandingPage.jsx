@@ -96,16 +96,19 @@ export default function LandingPage() {
 
     return (
         <Grid container>
+            <Grid item xs={1}></Grid>
             <Grid item xs={10}>
-                <Typography variant="h4">Welcome to Your Institution's Lab Training Tracker</Typography>
-                <Box sx={{ mb: "1rem" }}>
-                    <Typography variant="h6">Find A Specific Person:</Typography>
-                    <TextField id="search" name="search" label="Search by Last Name" type="text" size="small"
-                        value={searchText} onChange={(e) => setSearchText(e.target.value)} />
-                    <Button variant="contained" onClick={submitSearch}>Find</Button>
+                <Typography sx={{ mb: "2rem", mt: "1rem" }} textAlign="center" variant="h4">Welcome to Your Institution's Lab Training Tracker!</Typography>
+                <Box justifyContent="center" alignItems="center" display="flex">
+                    <Box sx={{ mb: "1rem" }}>
+                        <Typography variant="h6">Find A Specific Person:</Typography>
+                        <TextField sx={{ width: "13rem" }} id="search" name="search" label="Search by Last Name" type="text" size="small"
+                            value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+                        <Button sx={{ ml: ".5rem", width: "8rem" }} variant="contained" onClick={submitSearch}>Find</Button>
+                    </Box>
                 </Box>
-                <Button variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
-                <TableContainer component={Paper}>
+                <Button sx={{ mb: "1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
+                <TableContainer sx={{mb: "3rem" }} component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -135,6 +138,7 @@ export default function LandingPage() {
                 </TableContainer>
                 <AddPersonDialog open={dialogIsOpen} handleClose={closeDialog} />
             </Grid>
+            <Grid item xs={1}></Grid>
         </Grid>
     );
 }
