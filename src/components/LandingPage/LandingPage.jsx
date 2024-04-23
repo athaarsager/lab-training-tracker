@@ -102,7 +102,7 @@ export default function LandingPage() {
                 <Typography sx={{ mb: "2rem", mt: "1rem" }} textAlign="center" variant="h4">Welcome to Your Institution's Lab Training Tracker!</Typography>
                 <Typography variant="h6">Find A Specific Person:</Typography>
                 <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { xs: "column", sm: "row" }}}>
-                    <Box sx={{ mb: "1rem" }}>
+                    <Box display="flex" sx={{ mb: "1rem" }}>
                         <TextField sx={{ width: "13rem" }} id="search" name="search" label="Search by Last Name" type="text" size="small"
                             value={searchText} onChange={(e) => setSearchText(e.target.value)} />
                         <Button sx={{ backgroundColor: "gray", ":hover": { backgroundColor: "#696969" }}} variant="contained" onClick={submitSearch}><SearchIcon /></Button>
