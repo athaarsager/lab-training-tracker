@@ -45,7 +45,7 @@ function NavBar() {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={toggleDrawer}>
+                    <ListItemButton onClick={toggleDrawer(false)}>
                         <ListItemIcon>
                             <CloseIcon />
                         </ListItemIcon>
@@ -61,7 +61,7 @@ function NavBar() {
             <Grid item xs={10} display="flex" alignItems="center">
                 <Typography sx={{ color: "white", ml: ".5rem" }} variant="h5">Institution Name Here</Typography>
             </Grid>
-            <Grid item xs={2} display={"flex"} justifyContent={"flex-end"} alignItems={"center"}>
+            <Grid item xs={2} sx={{ display: {xs: "none", md: "flex"} }} justifyContent={"flex-end"} alignItems={"center"}>
                 <NavLink to="/" className={({ isActive }) =>
                     [
                         isActive ? "active" : "link"
@@ -73,6 +73,17 @@ function NavBar() {
                     ]
                 }>Trainings</NavLink>
             </Grid>
+            <Grid item xs={2} sx={{ display: {xs: "flex", md: "none"}}}>
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleDrawer(true)}>
+                        <MenuIcon sx={{ color: "white"}} />
+                    </IconButton>
+                    <Drawer open={open} anchor={"right"} onClose={toggleDrawer(false)}>
+                        {DrawerList}
+                    </Drawer>
+                </Grid>
         </Grid>
     );
 }
