@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import Button from '@mui/material/Button';
@@ -6,11 +6,10 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Grid";
 function TrainingDialog({ open, handleClose, selectedTraining }) {
+    const dispatch = useDispatch();
     const [training, setTraining] = useState(
         {
             title: "",
@@ -19,20 +18,81 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
         }
     );
 
+    const updateTraining = (e) => {
+        const { name, value } = e.target;
+        setTraining((state) => ({ ...state, [name]: value }));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (selectedTraining) {
+            dispatch({ type: "UPDATE_TRAINING", payload: training });
+            Swal.fire({
+                title: "Success!",
+                text: "Training Info Updated!",
+                icon: "success",
+                iconColor: "#66bb6a",
+                confirmButtonColor: "#42a5f5"
+            });
+        } else {
+            dispatch({ type: "ADD_TRAINING", payload: training });
+            Swal.fire({
+                title: "Success!",
+                text: "New Training Successfully Added!",
+                icon: "success",
+                iconColor: "#66bb6a",
+                confirmButtonColor: "#42a5f5"
+            });
+        }
+        handleClose();
+    }
+
+    const closeDialog = () => {
+        handleClose();
+        // Need to do the below in case Add Training selected twice in a row
+        if (!selectedTraining) {
+            setTraining(
+                {
+                    title: "",
+                    short_title: "",
+                    validation_length: ""
+                }
+            );
+        } else {
+            // make sure the selected training is cleared when the dialog is closed and value is not null
+            dispatch({ type: "CLEAR_SELECTED_TRAINING" });
+        }
+    }
+
+    useEffect(() => {
+        if (selectedTraining) {
+            setTraining({
+                id: selectedTraining.id,
+                title: selectedTraining.title,
+                short_title: selectedTraining.short_title,
+                validation_length: selectedTraining.validation_length
+            });
+        }
+    }, [selectedTraining]);
+
     return (
         <Box sx={{ minWidth: "50vh" }}>
             <Dialog
                 open={open}
-                // onClose={closeDialog}
-                PaperProps={{ component: "form", /*onSubmit: handleSubmit,*/ sx: { width: "50vh", padding: "1rem" } }}
+                onClose={closeDialog}
+                PaperProps={{ component: "form", onSubmit: handleSubmit, sx: { width: "50vh", padding: "1rem" } }}
             >
                 <DialogTitle>{selectedTraining ? "Update Training Details" : "Add a New Training"}</DialogTitle>
                 <TextField xs={{ mb: ".5rem" }} required id="title" name="title" label="full title" type="text" variant="standard" fullWidth
-                value={training.title} />
+                value={training.title} onChange={updateTraining} />
                 <TextField xs={{ mb: ".5rem" }} required id="short_title" name="short_title" label="Short Title" type="text" variant="standard" fullWidth
-                value={training.short_title} />
+                value={training.short_title} onChange={updateTraining} />
                 <TextField xs={{ mb: ".5rem" }} required id="validation_length" name="validation_length" label="Years Good For" type="number" variant="standard" fullWidth
-                value={training.validation_length} />
+                value={training.validation_length} onChange={updateTraining} />
+                <DialogActions>
+                    <Button color="error" onClick={closeDialog}>Cancel</Button>
+                    <Button type="submit">Submit</Button>
+                </DialogActions>
             </Dialog>
         </Box>
     );
