@@ -100,9 +100,8 @@ function PersonDetailsPage() {
     return (
         <Grid container>
             <Grid item xs={1}></Grid>
-            <Grid sx={{ mb: "3rem" }} item xs={10}>
-                
-                    <Typography textAlign="center" sx={{ mt: "1rem", mb: "1rem" }} variant="h5">Details on {person.first_name} {person.last_name}</Typography>
+            <Grid sx={{ mb: "3rem" }} item xs={10}>              
+                    <Typography textAlign="center" sx={{ mt: "1rem", mb: "1rem" }} variant="h4">Details on {person.first_name} {person.last_name}</Typography>
                     {/* Make two tables: one for person's info, the other for training info */}
                     <Typography variant="h6" sx={{ mb: "1rem" }}>{person.first_name}'s Personal Info</Typography>
                     <TableContainer component={Paper} sx={{ mb: "2rem" }}>
