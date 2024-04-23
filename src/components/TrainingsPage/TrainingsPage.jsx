@@ -38,12 +38,10 @@ function TrainingsPage() {
             title: "Are you sure?",
             text: "You won't be able to revert this!",
             icon: "warning",
-            iconColor: "#ffa726",
+            iconColor: "#dc8020",
             showCancelButton: true,
-            // primary.dark
-            confirmButtonColor: "#42a5f5",
-            // error.main
-            cancelButtonColor: "#f44336",
+            confirmButtonColor: "#1b9f9f", 
+            cancelButtonColor: "#9f1b1b",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
@@ -53,9 +51,9 @@ function TrainingsPage() {
                     text: "The training has been deleted.",
                     icon: "success",
                     // success.main
-                    iconColor: "#66bb6a",
+                    iconColor: "#1b9f9f",
                     // primary.dark
-                    confirmButtonColor: "#42a5f5"
+                    confirmButtonColor: "#0288d1"
                 })
             }
         });
