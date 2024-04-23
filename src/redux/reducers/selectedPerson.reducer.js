@@ -3,7 +3,7 @@ const selectedPersonReducer = (state = {}, action) => {
         case "SET_SELECTED_PERSON":
             return action.payload;
         case "CLEAR_SELECTED_PERSON":
-            return state;
+            return {};
         default:
             return state;
     }
