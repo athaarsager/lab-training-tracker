@@ -97,7 +97,7 @@ export default function LandingPage() {
     return (
         <Grid container>
             <Grid item xs={10}>
-                <Typography variant="h4">Welcome to the Lab Training Tracker for INSERT INSTITUTION HERE</Typography>
+                <Typography variant="h4">Welcome to Your Institution's Lab Training Tracker</Typography>
                 <Box sx={{ mb: "1rem" }}>
                     <Typography variant="h6">Find A Specific Person:</Typography>
                     <TextField id="search" name="search" label="Search by Last Name" type="text" size="small"
