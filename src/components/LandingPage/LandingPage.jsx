@@ -16,6 +16,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 export default function LandingPage() {
@@ -104,7 +105,7 @@ export default function LandingPage() {
                         <Typography variant="h6">Find A Specific Person:</Typography>
                         <TextField sx={{ width: "13rem" }} id="search" name="search" label="Search by Last Name" type="text" size="small"
                             value={searchText} onChange={(e) => setSearchText(e.target.value)} />
-                        <Button sx={{ ml: ".5rem", width: "8rem" }} variant="contained" onClick={submitSearch}>Find</Button>
+                        <Button variant="contained" onClick={submitSearch}><SearchIcon /></Button>
                     </Box>
                     <Box display="flex" alignItems="end">
                         <Button sx={{ height: "2.4rem", mb: ".1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
