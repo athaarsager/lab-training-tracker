@@ -100,15 +100,15 @@ export default function LandingPage() {
             <Grid item xs={1}></Grid>
             <Grid item xs={10}>
                 <Typography sx={{ mb: "2rem", mt: "1rem" }} textAlign="center" variant="h4">Welcome to Your Institution's Lab Training Tracker!</Typography>
-                <Box display="flex" justifyContent="space-between" sx={{ mb: "1rem" }}>
-                    <Box>
-                        <Typography variant="h6">Find A Specific Person:</Typography>
+                <Typography variant="h6">Find A Specific Person:</Typography>
+                <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { xs: "column", sm: "row" }}}>
+                    <Box sx={{ mb: "1rem" }}>
                         <TextField sx={{ width: "13rem" }} id="search" name="search" label="Search by Last Name" type="text" size="small"
                             value={searchText} onChange={(e) => setSearchText(e.target.value)} />
                         <Button variant="contained" onClick={submitSearch}><SearchIcon /></Button>
                     </Box>
-                    <Box display="flex" alignItems="end">
-                        <Button sx={{ height: "2.4rem", mb: ".1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
+                    <Box sx={{ mb: "1rem" }}>
+                        <Button sx={{ mb: ".1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
                     </Box>
                 </Box>
                 <TableContainer sx={{ mb: "3rem" }} component={Paper}>
