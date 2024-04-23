@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import TrainingDialog from "./TrainingDialog";
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
