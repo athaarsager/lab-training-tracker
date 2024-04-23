@@ -99,7 +99,6 @@ export default function LandingPage() {
             <Grid item xs={1}></Grid>
             <Grid item xs={10}>
                 <Typography sx={{ mb: "2rem", mt: "1rem" }} textAlign="center" variant="h4">Welcome to Your Institution's Lab Training Tracker!</Typography>
-
                 <Box display="flex" justifyContent="space-between" sx={{ mb: "1rem" }}>
                     <Box>
                         <Typography variant="h6">Find A Specific Person:</Typography>
@@ -111,8 +110,6 @@ export default function LandingPage() {
                         <Button sx={{ height: "2.4rem", mb: ".1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
                     </Box>
                 </Box>
-
-
                 <TableContainer sx={{ mb: "3rem" }} component={Paper}>
                     <Table>
                         <TableHead>

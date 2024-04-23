@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 function NavBar() {
     return (
         <Grid sx={{ height: "6vh", backgroundColor: "#0288d1" }} container>
-            <Grid item xs={10}>
+            <Grid item xs={10} display="flex" alignItems="center">
+                <Typography sx={{ color: "white", ml: ".5rem" }} variant="h5">Institution Name Here</Typography>
             </Grid>
             <Grid item xs={2} display={"flex"} justifyContent={"flex-end"} alignItems={"center"}>
                 <NavLink to="/" className={({ isActive }) =>
