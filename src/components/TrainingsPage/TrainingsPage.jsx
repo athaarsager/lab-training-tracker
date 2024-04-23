@@ -54,8 +54,8 @@ function TrainingsPage() {
     return (
         <Grid container>
             <Grid item>
-                <Typography variant="h4">Trainings</Typography>
-                <Button variant="contained">Add a New Training</Button>
+                <Typography sx={{ mb: "1rem" }} variant="h4">Trainings</Typography>
+                <Button sx={{ mb: "1rem" }} variant="contained">Add a New Training</Button>
                 <TableContainer component={Paper} sx={{ mb: "2rem" }}>
                     <Table>
                         <TableHead>
