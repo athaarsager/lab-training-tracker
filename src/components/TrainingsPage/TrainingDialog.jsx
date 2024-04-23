@@ -21,27 +21,27 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
     const updateTraining = (e) => {
         const { name, value } = e.target;
         if (name === "short_title") {
-            setTraining((state) => ({...state, [name]: value.toUpperCase()}));
+            setTraining((state) => ({ ...state, [name]: value.toUpperCase() }));
         } else {
-        setTraining((state) => ({ ...state, [name]: value }));
+            setTraining((state) => ({ ...state, [name]: value }));
         }
     }
 
     const closeDialog = () => {
         handleClose();
         // Need to do the below in case Add Training selected twice in a row
-        if (Object.keys(selectedTraining).length === 0) {
-            setTraining(
-                {
-                    title: "",
-                    short_title: "",
-                    validation_length: ""
-                }
-            );
-        } else {
-            // make sure the selected training is cleared when the dialog is closed and value is not null
+        setTraining(
+            {
+                title: "",
+                short_title: "",
+                validation_length: ""
+            }
+        );
+        if (Object.keys(selectedTraining).length > 0) {
+            // make sure the selected training is cleared when the dialog is closed and value is not an empty object
             dispatch({ type: "CLEAR_SELECTED_TRAINING" });
         }
+
     }
 
     const handleSubmit = (e) => {
@@ -88,11 +88,11 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
             >
                 <DialogTitle>{selectedTraining ? "Update Training Details" : "Add a New Training"}</DialogTitle>
                 <TextField xs={{ mb: ".5rem" }} required id="title" name="title" label="full title" type="text" variant="standard" fullWidth
-                value={training.title} onChange={updateTraining} />
+                    value={training.title} onChange={updateTraining} />
                 <TextField xs={{ mb: ".5rem" }} required id="short_title" name="short_title" label="Short Title" type="text" variant="standard" fullWidth
-                value={training.short_title} onChange={updateTraining} />
+                    value={training.short_title} onChange={updateTraining} />
                 <TextField xs={{ mb: ".5rem" }} required id="validation_length" name="validation_length" label="Years Good For" type="number" variant="standard" fullWidth
-                value={training.validation_length} onChange={updateTraining} />
+                    value={training.validation_length} onChange={updateTraining} />
                 <DialogActions>
                     <Button color="error" onClick={closeDialog}>Cancel</Button>
                     <Button type="submit">Submit</Button>

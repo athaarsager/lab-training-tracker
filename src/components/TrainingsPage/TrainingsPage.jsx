@@ -25,6 +25,17 @@ function TrainingsPage() {
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
     const closeDialog = () => setDialogIsOpen(false);
 
+    const openUpdateTrainingDialog = (e) => {
+        const training = {
+            id: e.target.dataset.id,
+            title: e.target.dataset.title,
+            short_title: e.target.dataset.short_title,
+            validation_length: e.target.dataset.validation_length
+        }
+        dispatch({ type: "SET_SELECTED_TRAINING", payload: training });
+        setDialogIsOpen(true);
+    }
+
     const deleteTraining = (e) => {
         Swal.fire({
             title: "Are you sure?",
@@ -78,7 +89,19 @@ function TrainingsPage() {
                                     <TableCell>{training.title}</TableCell>
                                     <TableCell>{training.short_title}</TableCell>
                                     <TableCell>{training.validation_length + " year(s)"}</TableCell>
-                                    <TableCell><Button data-training_id={training.id} variant="outlined" color="secondary">Edit Training</Button></TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant="outlined"
+                                            color="secondary"
+                                            data-id={training.id}
+                                            data-title={training.title}
+                                            data-short_title={training.short_title}
+                                            data-validation_length={training.validation_length}
+                                            onClick={(openUpdateTrainingDialog)}
+                                        >
+                                            Edit Training
+                                        </Button>
+                                    </TableCell>
                                     <TableCell><Button data-training_id={training.id} onClick={deleteTraining} variant="outlined" color="error">Delete Training</Button></TableCell>
                                 </TableRow>
                             ))}

@@ -3,7 +3,7 @@ const selectedTrainingReducer = (state = {}, action) => {
         case "SET_SELECTED_TRAINING":
             return action.payload;
         case "CLEAR_SELECTED_TRAINING":
-            return state;
+            return {};
         default:
             return state;
     }
