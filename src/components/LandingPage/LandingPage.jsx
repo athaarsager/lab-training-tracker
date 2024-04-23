@@ -105,7 +105,7 @@ export default function LandingPage() {
                     <Box sx={{ mb: "1rem" }}>
                         <TextField sx={{ width: "13rem" }} id="search" name="search" label="Search by Last Name" type="text" size="small"
                             value={searchText} onChange={(e) => setSearchText(e.target.value)} />
-                        <Button variant="contained" onClick={submitSearch}><SearchIcon /></Button>
+                        <Button sx={{ backgroundColor: "gray", ":hover": { backgroundColor: "#696969" }}} variant="contained" onClick={submitSearch}><SearchIcon /></Button>
                     </Box>
                     <Box sx={{ mb: "1rem" }}>
                         <Button sx={{ mb: ".1rem" }} variant="contained" onClick={() => setDialogIsOpen(true)}>Add a New Person</Button>
