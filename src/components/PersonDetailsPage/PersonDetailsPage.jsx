@@ -14,6 +14,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 function PersonDetailsPage() {
     const dispatch = useDispatch();
@@ -99,32 +100,36 @@ function PersonDetailsPage() {
 
     return (
         <Grid container>
-            <Grid item xs={10}>
-                <Typography variant="h5">Person Details Page</Typography>
-                {/* Make two tables: one for person's info, the other for training info */}
-                <TableContainer component={Paper} sx={{ mb: "2rem" }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Last Name</TableCell>
-                                <TableCell>First Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Instructor?</TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>{person.last_name}</TableCell>
-                                <TableCell>{person.first_name}</TableCell>
-                                <TableCell>{person.email}</TableCell>
-                                <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
-                                <TableCell><Button onClick={(e) => setDialogIsOpen(true)} color="secondary" variant="outlined">Update Info</Button></TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <Typography variant="h6" sx={{ mb: "1rem" }}>Trainings</Typography>
+            <Grid item xs={1}></Grid>
+            <Grid sx={{ mb: "3rem" }} item xs={10}>
+                
+                    <Typography textAlign="center" sx={{ mt: "1rem", mb: "1rem" }} variant="h5">Details on {person.first_name} {person.last_name}</Typography>
+                    {/* Make two tables: one for person's info, the other for training info */}
+                    <Typography variant="h6" sx={{ mb: "1rem" }}>{person.first_name}'s Personal Info</Typography>
+                    <TableContainer component={Paper} sx={{ mb: "2rem" }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Last Name</TableCell>
+                                    <TableCell>First Name</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Instructor?</TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>{person.last_name}</TableCell>
+                                    <TableCell>{person.first_name}</TableCell>
+                                    <TableCell>{person.email}</TableCell>
+                                    <TableCell>{person.is_instructor ? "Yes" : "No"}</TableCell>
+                                    <TableCell><Button onClick={(e) => setDialogIsOpen(true)} color="secondary" variant="outlined">Update Info</Button></TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                
+                <Typography variant="h6" sx={{ mb: "1rem" }}>Status of {person.first_name}'s Trainings</Typography>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -154,9 +159,10 @@ function PersonDetailsPage() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <EditPersonDialog open={dialogIsOpen} handleClose={closeDialog} selectedPerson={person} personId={personId}/>
+                <EditPersonDialog open={dialogIsOpen} handleClose={closeDialog} selectedPerson={person} personId={personId} />
             </Grid>
-        </Grid>
+            <Grid item xs={1}></Grid>
+        </Grid >
     );
 }
 
