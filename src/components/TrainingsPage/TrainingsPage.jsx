@@ -60,7 +60,7 @@ function TrainingsPage() {
         <Grid container>
             <Grid item>
                 <Typography sx={{ mb: "1rem" }} variant="h4">Trainings</Typography>
-                <Button sx={{ mb: "1rem" }} variant="contained">Add a New Training</Button>
+                <Button onClick={(e) => setDialogIsOpen(true)} sx={{ mb: "1rem" }} variant="contained">Add a New Training</Button>
                 <TableContainer component={Paper} sx={{ mb: "2rem" }}>
                     <Table>
                         <TableHead>
@@ -85,6 +85,7 @@ function TrainingsPage() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <TrainingDialog open={dialogIsOpen} handleClose={closeDialog} selectedTraining={selectedTraining} />
             </Grid>
         </Grid>
     );

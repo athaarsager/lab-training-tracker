@@ -20,12 +20,33 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
 
     const updateTraining = (e) => {
         const { name, value } = e.target;
+        if (name === "short_title") {
+            setTraining((state) => ({...state, [name]: value.toUpperCase()}));
+        } else {
         setTraining((state) => ({ ...state, [name]: value }));
+        }
+    }
+
+    const closeDialog = () => {
+        handleClose();
+        // Need to do the below in case Add Training selected twice in a row
+        if (Object.keys(selectedTraining).length === 0) {
+            setTraining(
+                {
+                    title: "",
+                    short_title: "",
+                    validation_length: ""
+                }
+            );
+        } else {
+            // make sure the selected training is cleared when the dialog is closed and value is not null
+            dispatch({ type: "CLEAR_SELECTED_TRAINING" });
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (selectedTraining) {
+        if (Object.keys(selectedTraining).length > 0) {
             dispatch({ type: "UPDATE_TRAINING", payload: training });
             Swal.fire({
                 title: "Success!",
@@ -44,28 +65,11 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
                 confirmButtonColor: "#42a5f5"
             });
         }
-        handleClose();
-    }
-
-    const closeDialog = () => {
-        handleClose();
-        // Need to do the below in case Add Training selected twice in a row
-        if (!selectedTraining) {
-            setTraining(
-                {
-                    title: "",
-                    short_title: "",
-                    validation_length: ""
-                }
-            );
-        } else {
-            // make sure the selected training is cleared when the dialog is closed and value is not null
-            dispatch({ type: "CLEAR_SELECTED_TRAINING" });
-        }
+        closeDialog();
     }
 
     useEffect(() => {
-        if (selectedTraining) {
+        if (Object.keys(selectedTraining).length > 0) {
             setTraining({
                 id: selectedTraining.id,
                 title: selectedTraining.title,
