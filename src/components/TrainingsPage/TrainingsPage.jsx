@@ -93,7 +93,7 @@ function TrainingsPage() {
                                     <TableCell>
                                         <Button
                                             variant="outlined"
-                                            color="secondary"
+                                            color="primary"
                                             data-id={training.id}
                                             data-title={training.title}
                                             data-short_title={training.short_title}

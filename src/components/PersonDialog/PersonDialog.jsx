@@ -52,10 +52,8 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
                 title: "Success!",
                 text: `${person.first_name}'s Info Updated!`,
                 icon: "success",
-                // success.main
-                iconColor: "#66bb6a",
-                // primary.dark
-                confirmButtonColor: "#42a5f5"
+                iconColor: "#1b9f9f",
+                confirmButtonColor: "#0288d1"
             });
         } else {
             dispatch({ type: "ADD_PERSON", payload: person });
@@ -63,10 +61,8 @@ function PersonDialog({ open, handleClose, selectedPerson, personId }) {
                 title: "Success!",
                 text: "New Person Successfully Added!",
                 icon: "success",
-                // success.main
-                iconColor: "#66bb6a",
-                // primary.dark
-                confirmButtonColor: "#42a5f5"
+                iconColor: "#1b9f9f",
+                confirmButtonColor: "#0288d1"
             });
         }
         closeDialog();

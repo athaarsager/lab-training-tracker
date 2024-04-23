@@ -126,7 +126,6 @@ function PersonDetailsPage() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                
                 <Typography variant="h6" sx={{ mb: "1rem" }}>Status of {person.first_name}'s Trainings</Typography>
                 <TableContainer component={Paper}>
                     <Table>
@@ -149,7 +148,7 @@ function PersonDetailsPage() {
                                     <TableCell>{displayButton(training) &&
                                         <Button data-training_id={training.training_id}
                                             data-person_training_id={training.person_training_id}
-                                            color="success" variant="outlined" onClick={updateTrainingRecords}>
+                                            color="primary" variant="outlined" onClick={updateTrainingRecords}>
                                             Take Training
                                         </Button>}</TableCell>
                                 </TableRow>

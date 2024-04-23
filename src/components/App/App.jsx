@@ -21,10 +21,11 @@ function App() {
     palette: {
       mode: 'light',
       primary: {
-        main: '#9F1B1B',
+        main: '#1b9f9f',
       },
       secondary: {
-        main: '#1b9f9f',
+        main: '#0288d1',
+        light: '#03a9f4',
       },
       success: {
         main: '#1b9f1b',
@@ -34,11 +35,12 @@ function App() {
         light: 'rgb(227, 153, 76)',
       },
       error: {
-        main: '#d32f2f',
+        main: '#9F1B1B',
       },
       info: {
         main: '#0288d1',
         light: '#03a9f4',
+        dark: "rgb(1, 95, 146)"
       },
     },
   }
