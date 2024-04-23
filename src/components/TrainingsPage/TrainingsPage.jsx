@@ -15,11 +15,15 @@ import Button from "@mui/material/Button";
 function TrainingsPage() {
     const dispatch = useDispatch();
     const trainings = useSelector(store => store.trainings);
+    const selectedTraining = useSelector(store => store.selectedTraining);
 
     // TODO: 
     // On training page, need to add a backend query where when a training is added, a new entry is added to person_training for everyone, default value false
     // The above may not be necessary based on how I made the queries on the person details page
 
+    // Dialog variables
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
+    const closeDialog = () => setDialogIsOpen(false);
 
     const deleteTraining = (e) => {
         Swal.fire({
