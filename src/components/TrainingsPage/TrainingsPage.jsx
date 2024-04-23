@@ -40,7 +40,9 @@ function TrainingsPage() {
             icon: "warning",
             iconColor: "#ffa726",
             showCancelButton: true,
+            // primary.dark
             confirmButtonColor: "#42a5f5",
+            // error.main
             cancelButtonColor: "#f44336",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
@@ -50,15 +52,14 @@ function TrainingsPage() {
                     title: "Deleted!",
                     text: "The training has been deleted.",
                     icon: "success",
+                    // success.main
                     iconColor: "#66bb6a",
+                    // primary.dark
                     confirmButtonColor: "#42a5f5"
                 })
             }
         });
     }
-    // When designing the dialog box, should make it reusable for creating a new training and editing an existing one
-    // For editing an existing training it should pre-populated with the training that was clicked on
-    // May be tricky to set and unset that variable...maybe need to create new variable in the store?
 
     useEffect(() => {
         dispatch({ type: "FETCH_TRAININGS" });

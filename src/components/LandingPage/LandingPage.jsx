@@ -69,7 +69,9 @@ export default function LandingPage() {
             icon: "warning",
             iconColor: "#ffa726",
             showCancelButton: true,
+            // primary.dark
             confirmButtonColor: "#42a5f5",
+            // error.main
             cancelButtonColor: "#f44336",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
@@ -79,7 +81,9 @@ export default function LandingPage() {
                     title: "Deleted!",
                     text: "The person has been removed from the system.",
                     icon: "success",
+                    // success.main
                     iconColor: "#66bb6a",
+                    // primary.dark
                     confirmButtonColor: "#42a5f5"
                 });
             }

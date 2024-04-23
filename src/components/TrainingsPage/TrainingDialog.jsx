@@ -52,7 +52,9 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
                 title: "Success!",
                 text: "Training Info Updated!",
                 icon: "success",
+                // success.main
                 iconColor: "#66bb6a",
+                // primary.dark
                 confirmButtonColor: "#42a5f5"
             });
         } else {
@@ -61,7 +63,9 @@ function TrainingDialog({ open, handleClose, selectedTraining }) {
                 title: "Success!",
                 text: "New Training Successfully Added!",
                 icon: "success",
+                // success.main
                 iconColor: "#66bb6a",
+                // primary.dark
                 confirmButtonColor: "#42a5f5"
             });
         }
