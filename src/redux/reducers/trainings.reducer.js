@@ -1,10 +1,15 @@
-const trainingsReducer = (state = [], action) => {
-    switch(action.type) {
-        case "SET_TRAININGS":
-            return action.payload;
-        default:
-            return state;
-    }
-}
+import { createSlice } from '@reduxjs/toolkit';
 
-export default trainingsReducer;
+const trainingSlice = createSlice({
+  name: 'training',
+  initialState: [],
+  reducers: {
+    allTraining(state, action) {
+      return action.payload;
+    },
+  },
+});
+
+export const { allTraining } = trainingSlice.actions;
+
+export default trainingSlice.reducer;
