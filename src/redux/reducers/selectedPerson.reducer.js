@@ -16,16 +16,3 @@ const selectedPersonSlice = createSlice({
 export const { selectPerson, clearSelectedPerson } = selectedPersonSlice.actions;
 
 export default selectedPersonSlice.reducer;
-
-// const selectedPersonReducer = (state = {}, action) => {
-//     switch (action.type) {
-//         case "SET_SELECTED_PERSON":
-//             return action.payload;
-//         case "CLEAR_SELECTED_PERSON":
-//             return {};
-//         default:
-//             return state;
-//     }
-// }
-
-// export default selectedPersonReducer;
