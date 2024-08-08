@@ -13,6 +13,7 @@ const store = configureStore({
     const middleware = getDefaultMiddleware().concat(sagaMiddleware);
 
     // Conditionally add another middleware in dev
+    // eslint-disable-next-line no-undef
     if (process.env.NODE_ENV !== 'production') {
       middleware.push(logger);
     }

@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import { allPeople } from '../reducers/people.reducer';
 import { selectPerson } from '../reducers/selectedPerson.reducer';
+import { allTrainingStatus } from '../reducers/trainingStatuses.reducer';
 // get all people
 function* fetchPeople() {
   try {
@@ -19,7 +20,7 @@ function* fetchSelectedPersonInfo(action) {
     const selectedPersonResponse = yield axios.get(`/api/person/${action.payload}`);
     const trainingStatusesResponse = yield axios.get(`/api/training/${action.payload}`);
     yield put(selectPerson(selectedPersonResponse.data[0]));
-    yield put({ type: 'SET_TRAINING_STATUSES', payload: trainingStatusesResponse.data });
+    yield put(allTrainingStatus(trainingStatusesResponse.data));
   } catch (error) {
     console.error("ERROR fetching the selected person's information:", error);
   }
