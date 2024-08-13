@@ -1,10 +1,15 @@
-const peopleReducer = (state = [], action) => {
-    switch(action.type) {
-        case "SET_PEOPLE":
-            return action.payload;
-        default:
-            return state;
-    }
-}
+import { createSlice } from '@reduxjs/toolkit';
 
-export default peopleReducer;
+const peopleSlice = createSlice({
+  name: 'people',
+  initialState: [],
+  reducers: {
+    allPeople(state, action) {
+      return action.payload;
+    },
+  },
+});
+
+export const { allPeople } = peopleSlice.actions;
+
+export default peopleSlice.reducer;

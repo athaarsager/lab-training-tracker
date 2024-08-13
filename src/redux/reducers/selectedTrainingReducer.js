@@ -1,12 +1,18 @@
-const selectedTrainingReducer = (state = {}, action) => {
-    switch(action.type) {
-        case "SET_SELECTED_TRAINING":
-            return action.payload;
-        case "CLEAR_SELECTED_TRAINING":
-            return {};
-        default:
-            return state;
-    }
-}
+import { createSlice } from '@reduxjs/toolkit';
 
-export default selectedTrainingReducer;
+const selectedTrainingSlice = createSlice({
+  name: 'select_training',
+  initialState: {},
+  reducers: {
+    allSelectedTraining(state, action) {
+      return action.payload;
+    },
+    clearSelectedTraining() {
+      return {};
+    },
+  },
+});
+
+export const { allSelectedTraining, clearSelectedTraining } = selectedTrainingSlice.actions;
+
+export default selectedTrainingSlice.reducer;
